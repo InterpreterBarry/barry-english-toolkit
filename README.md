@@ -4,9 +4,11 @@
 
 **让 AI 当你的私人职场英语教练 —— 测水平、找卡点、出专属方案,每天 10 分钟练听说。**
 
-*An AI workplace-English coach that runs inside Claude Code — assesses your level, finds your blockers, builds a plan tailored to you, then trains you 10 minutes a day.*
+**跑在 Claude Code、Codex 等任意能安装并读取 skill 的 AI Agent 工具里。**
 
-[安装 Install](#-一行安装--one-line-install) · [怎么用 Usage](#-怎么用--how-to-use) · [原理 How it works](#-原理--how-it-works) · [English](#-english)
+*An AI workplace-English coach you run inside your AI agent — Claude Code, Codex, or any tool that can install and read skills. It assesses your level, finds your blockers, builds a plan tailored to you, then trains you 10 minutes a day.*
+
+[安装 Install](#-安装--install) · [怎么用 Usage](#-怎么用--how-to-use) · [原理 How it works](#-原理--how-it-works) · [English](#-english)
 
 </div>
 
@@ -14,7 +16,7 @@
 
 ## 这是什么
 
-很多职场人英文「考试没问题,一开口开会就卡」。这套工具箱不教你背单词、刷题,而是把 Barry(同传出身)多年的英文沟通方法论,做成一组跑在 **Claude Code** 里的 AI 教练:
+很多职场人英文「考试没问题,一开口开会就卡」。这套工具箱不教你背单词、刷题,而是把 Barry(同传出身)多年的英文沟通方法论,做成一组 **Agent Skill** —— 在 Claude Code、Codex 等任意能安装并读取 skill 的 AI Agent 工具里都能用:
 
 1. 🩺 **AI 教练帮你诊断** —— 当前听说水平 + 具体卡在哪
 2. 🎯 **出一个为你定制的方案** —— 不是网上 generic 那种
@@ -25,9 +27,15 @@
 
 ---
 
-## ⚡ 一行安装 · One-line install
+## ⚡ 安装 · Install
 
-> 前置:先装好 [Claude Code](https://claude.com/claude-code)。Quiz 词汇网页另需 [Node.js](https://nodejs.org/)(可选,之后补也行)。
+这套工具箱本质是一组**可移植的 Agent Skill(纯文本文件)**—— 任何能安装并读取 skill 的 AI Agent 都能用。下面是最省事的 Claude Code 一键装法;Codex / 其他 Agent 见后。
+
+> 前置:Quiz 词汇网页需要 [Node.js](https://nodejs.org/)(可选,之后补也行)。
+
+### 在 Claude Code 里(一行装好)
+
+先装好 [Claude Code](https://claude.com/claude-code),然后:
 
 **Mac / Linux / WSL** —— 打开终端粘贴:
 
@@ -41,24 +49,21 @@ curl -fsSL https://raw.githubusercontent.com/InterpreterBarry/barry-english-tool
 irm https://raw.githubusercontent.com/InterpreterBarry/barry-english-toolkit/main/scripts/bootstrap.ps1 | iex
 ```
 
-装完**完全退出并重开 Claude Code**(让它识别新 Skill),然后输入 `开始`。
+装完**完全退出并重开 Claude Code**,然后输入 `开始`。
 
-<details>
-<summary>不想用命令行?两种替代装法</summary>
+> 不想用命令行?直接对 Claude Code 说:"帮我安装 github.com/InterpreterBarry/barry-english-toolkit 这个工具箱,跑里面的 `scripts/install.sh`"。
 
-**让 Claude Code 帮你装** —— 打开 Claude Code,原话照搬:
+### 在 Codex / 其他 Agent 里
 
-> "帮我安装 github.com/InterpreterBarry/barry-english-toolkit 这个工具箱,跑里面的 `scripts/install.sh`"
-
-**手动 clone**
+skill 是纯文本,任何 Agent 都能读。把仓库拉下来,让你的 Agent 加载 `skills/` 目录:
 
 ```bash
 git clone https://github.com/InterpreterBarry/barry-english-toolkit.git
-cd barry-english-toolkit
-bash scripts/install.sh        # Windows: powershell -ExecutionPolicy Bypass -File scripts\install.ps1
 ```
 
-</details>
+然后让你的 Agent 把 `skills/` 下的 skill 放到它读取 skill 的位置(或直接让它读 [`INSTALL_FOR_AI.md`](INSTALL_FOR_AI.md) 自助安装);方法论 wiki 在 `methodology/`,让 coach 能读到即可。
+
+> 说明:一键脚本目前对 Claude Code 优化得最好(像「自动生成专属每日训练 skill」这类自动化依赖 Claude Code 的 skill 目录)。其他 Agent 上,全部 skill + 方法论 wiki 这些**核心内容都能用**,个别自动化步骤可能要手动跟一下。
 
 ---
 
@@ -71,6 +76,8 @@ bash scripts/install.sh        # Windows: powershell -ExecutionPolicy Bypass -Fi
 | **随时答疑** | `/barry-coach` —— 英文怎么说、某概念什么意思、这个怎么练,随时问 |
 | **临时任务来了** | 下周英文演讲 → `/barry-speech-training`;一段中文要翻 → `/barry-translation-training`;想法要理清 → `/barry-logic-training`;一条龙出英文演讲稿 → `/barry-logic-to-speech` |
 | **背单词** | 双击桌面 `Barry-Quiz.command`(Mac)/ `Barry-Quiz.bat`(Windows),浏览器打开 SM-2 间隔重复 Quiz |
+
+> 上面的 `/barry-xxx` 是 Claude Code 的 skill 触发写法;在 Codex / 其他 Agent 里,按对应方式唤起同名 skill 即可。
 
 跑完 onboarding 后,你的所有学习产物都在 `~/.barry-english/`:专属档案、词库、训练日志、Quiz 网页。
 
@@ -106,7 +113,7 @@ bash scripts/install.sh        # Windows: powershell -ExecutionPolicy Bypass -Fi
 ## 🛠 原理 · How it works
 
 ```
-一行安装 → install.sh ──┬─→ 9 个 Skill 装进 ~/.claude/skills/
+一行安装 → install.sh ──┬─→ 9 个 Skill 装进 ~/.claude/skills/(Claude Code 路径;其他 Agent 放到对应 skill 目录)
                         └─→ 方法论 wiki 装进 ~/.barry-english/methodology/(coach 的 RAG 数据源)
 
 输入「开始」→ barry-onboarding 串联:
@@ -123,7 +130,7 @@ Quiz 网页 → 读 fancy-vocab.md,SM-2 间隔重复复习
 
 ## 系统要求
 
-- **Claude Code**(必需)
+- **一个支持 Skill 的 AI Agent**(Claude Code / Codex 等;Claude Code 有一键安装,体验最顺)
 - **Node.js**(Quiz 网页需要;不装也能用其余全部功能)
 - **操作系统**:Mac / Windows 完全等价;Linux / WSL 可手动启动 Quiz(`cd ~/.barry-english/quiz-web && node server.js`)
 
@@ -143,7 +150,7 @@ Quiz 网页 → 读 fancy-vocab.md,SM-2 间隔重复复习
 
 ### What is this
 
-Plenty of working professionals can pass English exams but freeze the moment a meeting starts. This toolkit doesn't drill flashcards — it turns Barry's communication methodology (he's a former simultaneous interpreter) into a set of AI coaches that run inside **Claude Code**:
+Plenty of working professionals can pass English exams but freeze the moment a meeting starts. This toolkit doesn't drill flashcards — it turns Barry's communication methodology (he's a former simultaneous interpreter) into a set of portable **agent skills** that run in any AI agent which can install and read skills — Claude Code, Codex, and more:
 
 1. 🩺 **An AI coach diagnoses** your current speaking/listening level and your specific blockers
 2. 🎯 **Builds a plan tailored to you** — not generic internet advice
@@ -154,7 +161,7 @@ Plenty of working professionals can pass English exams but freeze the moment a m
 
 ### One-line install
 
-> Prerequisite: install [Claude Code](https://claude.com/claude-code) first. The Quiz web app also needs [Node.js](https://nodejs.org/) (optional).
+> The one-line installer below is the turnkey path for [Claude Code](https://claude.com/claude-code). On Codex or other agents, clone the repo and have your agent load the `skills/` folder (see [`INSTALL_FOR_AI.md`](INSTALL_FOR_AI.md)). The Quiz web app needs [Node.js](https://nodejs.org/) (optional).
 
 **Mac / Linux / WSL:**
 
