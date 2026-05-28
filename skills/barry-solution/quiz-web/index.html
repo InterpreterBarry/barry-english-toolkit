@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<!-- Barry English Toolkit Quiz Web — MIT-style open source -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+<title>Barry Quiz</title>
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-alt: #f0f3f8;
+    --border: #e2e6ee;
+    --text: #1f2533;
+    --text-secondary: #4a5468;
+    --text-tertiary: #8590a6;
+    --accent: #3b82f6;
+    --accent-soft: #e7efff;
+    --green: #16a34a;
+    --green-soft: #e6f7eb;
+    --red: #dc2626;
+    --red-soft: #fdecec;
+    --amber: #d97706;
+    --amber-soft: #fef3c7;
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 14px;
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.05);
+    --shadow-md: 0 4px 12px rgba(15,23,42,.08);
+    --shadow-lg: 0 12px 32px rgba(15,23,42,.16);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font-family: inherit; font-size: inherit; cursor: pointer; }
+  a { color: var(--accent); text-decoration: none; }
+
+  .app {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  header.top {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 4px 16px;
+  }
+  header.top h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  header.top .sub {
+    color: var(--text-tertiary);
+    font-size: 12px;
+    margin-left: 4px;
+  }
+  header.top .stats {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex; gap: 12px;
+    align-items: center;
+  }
+  header.top .stats b { color: var(--text); font-weight: 700; }
+  header.top .gear-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    width: 30px; height: 30px;
+    border-radius: var(--r-sm);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  header.top .gear-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+  .nav {
+    display: flex; gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 4px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    flex: 1;
+    min-width: 88px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    border-radius: var(--r-sm);
+    font-weight: 600;
+    font-size: 13px;
+    transition: background .15s, color .15s;
+  }
+  .nav-btn:hover { background: var(--surface-alt); }
+  .nav-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .view { display: none; flex: 1; }
+  .view.active { display: block; }
+
+  /* Sessions list */
+  .list-grid { display: grid; gap: 10px; }
+  .list-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .15s, border-color .15s;
+  }
+  .list-item:hover { border-color: #c8d3e3; box-shadow: var(--shadow-md); }
+  .list-item .li-main { flex: 1; min-width: 0; }
+  .list-item .li-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+    margin: 0 0 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .list-item .li-meta {
+    font-size: 12px; color: var(--text-tertiary);
+  }
+  .list-item .li-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .pill {
+    display: inline-flex; align-items: center;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .pill.due {
+    background: var(--red-soft);
+    color: var(--red);
+  }
+
+  .btn {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    padding: 7px 14px;
+    border-radius: var(--r-sm);
+    font-size: 12px;
+    font-weight: 600;
+    transition: background .15s, border-color .15s, color .15s;
+    min-width: 64px;
+  }
+  .btn:hover { background: var(--surface-alt); }
+  .btn.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn.primary:hover { filter: brightness(1.05); background: var(--accent); }
+  .btn.success {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+  .btn.success:hover { filter: brightness(1.05); background: var(--green); }
+  .btn.danger { color: var(--red); border-color: var(--red-soft); }
+  .btn.danger:hover { background: var(--red-soft); }
+  .btn.small { padding: 4px 10px; font-size: 11px; min-width: 0; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .muted { color: var(--text-tertiary); }
+
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-tertiary);
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--r-md);
+  }
+  .empty .e-title { font-size: 14px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+  .empty .e-hint { font-size: 12px; }
+  .empty code {
+    background: var(--surface-alt);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 11px;
+  }
+
+  /* Sessions tip */
+  .tip-box {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* ===== Daily Quiz ===== */
+  .daily-header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm);
+  }
+  .daily-header .dh-title {
+    font-size: 14px; font-weight: 800; margin: 0;
+  }
+  .daily-header .dh-progress {
+    display: flex; gap: 6px; align-items: center;
+  }
+  .daily-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    transition: transform .15s, border-color .15s, background .15s;
+    cursor: pointer;
+  }
+  .daily-dot.correct { background: var(--green); border-color: var(--green); }
+  .daily-dot.wrong { background: var(--red); border-color: var(--red); }
+  .daily-dot.current {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .daily-header .dh-right {
+    margin-left: auto;
+    display: flex; gap: 8px; align-items: center;
+  }
+  .daily-header .dh-score {
+    font-size: 12px; color: var(--text-secondary); font-weight: 600;
+  }
+  .daily-header .dh-score b { color: var(--green); font-size: 14px; }
+
+  .quiz-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .quiz-card-header {
+    padding: 12px 18px;
+    color: #fff;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--accent);
+  }
+  .quiz-card-header.qch-cn2en {
+    background: linear-gradient(135deg, #2563eb, #4338ca);
+  }
+  .quiz-card-header h4 {
+    margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .02em;
+  }
+  .quiz-card-header .qch-num {
+    margin-left: auto;
+    font-size: 11px;
+    opacity: .85;
+  }
+  .quiz-card-header .qch-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,.18);
+    font-weight: 700;
+  }
+  .quiz-body { padding: 22px 22px 18px; }
+
+  .quiz-prompt {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 4px;
+    word-break: break-word;
+  }
+  .quiz-prompt-cn {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 12px;
+  }
+  .quiz-ipa {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .quiz-hint {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 8px 0 16px;
+    padding: 10px 12px;
+    background: var(--surface-alt);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    line-height: 1.55;
+  }
+
+  /* Multiple choice options */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .1s;
+    text-align: left;
+    font-family: inherit;
+    color: var(--text);
+    width: 100%;
+  }
+  .option:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .option:active { transform: scale(.99); }
+  .option .o-label {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+  }
+  .option .o-text { flex: 1; font-size: 13px; line-height: 1.5; }
+  .option.correct {
+    border-color: var(--green);
+    background: var(--green-soft);
+  }
+  .option.correct .o-label {
+    background: var(--green); color: #fff; border-color: var(--green);
+  }
+  .option.wrong {
+    border-color: var(--red);
+    background: var(--red-soft);
+  }
+  .option.wrong .o-label {
+    background: var(--red); color: #fff; border-color: var(--red);
+  }
+  .option.disabled { pointer-events: none; opacity: .82; }
+  .option.disabled.correct { opacity: 1; }
+
+  /* Letter-box fill-in */
+  .fill-wrap { margin-top: 8px; }
+  .fill-sentence {
+    font-size: 14px; color: var(--text); line-height: 2.2;
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    background: var(--surface-alt);
+    border-radius: var(--r-md);
+    border: 1px solid var(--border);
+  }
+  .quiz-letter-boxes {
+    display: inline-flex; gap: 1px; vertical-align: baseline; margin: 0 3px;
+  }
+  .quiz-letter-box {
+    width: 18px; height: 26px;
+    border: none;
+    border-bottom: 2.5px solid #999;
+    border-radius: 0;
+    text-align: center;
+    font-size: 16px; font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text);
+    background: transparent;
+    outline: none;
+    transition: all .15s;
+    padding: 0;
+    caret-color: var(--accent);
+    text-transform: lowercase;
+  }
+  .quiz-letter-box:focus { border-bottom-color: var(--accent); border-bottom-width: 3px; }
+  .quiz-letter-box.filled { border-bottom-color: var(--accent); color: var(--accent); }
+  .quiz-letter-box.correct { border-bottom-color: var(--green); color: var(--green); }
+  .quiz-letter-box.wrong { border-bottom-color: var(--red); color: var(--red); }
+  .quiz-letter-box.reveal-correct { border-bottom-color: var(--green); color: var(--green); }
+  .quiz-letter-box:disabled { opacity: .85; cursor: not-allowed; }
+  .quiz-fixed-char {
+    display: inline-block;
+    width: 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    vertical-align: baseline;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .quiz-fixed-char.reveal { color: var(--green); }
+  .fill-actions {
+    display: flex; gap: 8px; align-items: center; margin-top: 4px;
+  }
+  .fill-hint {
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+  .reveal-row {
+    margin-top: 8px;
+  }
+  .reveal-row .reveal-label {
+    font-size: 11px;
+    color: var(--green);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .reveal-row .fill-sentence {
+    border-color: var(--green);
+    background: rgba(34,197,94,.05);
+  }
+
+  /* Feedback / explanation */
+  .feedback {
+    margin-top: 16px;
+    padding: 14px;
+    background: var(--surface-alt);
+    border-radius: var(--r-md);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    display: none;
+  }
+  .feedback.visible { display: block; }
+  .feedback.correct { border-left-color: var(--green); }
+  .feedback.wrong { border-left-color: var(--red); }
+  .feedback .fb-row { margin-bottom: 6px; font-size: 13px; line-height: 1.55; }
+  .feedback .fb-row:last-child { margin-bottom: 0; }
+  .feedback .fb-key { color: var(--text-tertiary); font-weight: 600; min-width: 76px; display: inline-block; }
+  .feedback .fb-val { color: var(--text); }
+  .feedback .fb-val.muted { color: var(--text-tertiary); font-style: italic; }
+
+  .actions-row {
+    display: flex; gap: 8px; align-items: center;
+    margin-top: 16px; flex-wrap: wrap;
+  }
+  .actions-row .spacer { flex: 1; }
+
+  .speak-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .speak-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .speak-btn.playing { color: var(--accent); border-color: var(--accent); }
+  .speak-icon { width: 14px; height: 14px; }
+
+  /* Done card */
+  .done-card {
+    text-align: center;
+    padding: 36px 24px;
+  }
+  .done-card .emoji { font-size: 48px; margin-bottom: 8px; }
+  .done-card .title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .done-card .score { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+  .done-card .score b { color: var(--green); font-size: 20px; }
+
+  /* Source picker */
+  .source-picker {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .source-picker .sp-title { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+  .source-picker select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .source-picker .sp-row { display: flex; gap: 8px; align-items: center; }
+  .source-picker .sp-row select { flex: 1; }
+
+  /* Flashcard study mode */
+  .flash-progress {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .flash-progress > div {
+    height: 100%;
+    background: var(--green);
+    transition: width .3s;
+  }
+  .flash-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md);
+    padding: 32px 24px;
+    text-align: center;
+    min-height: 180px;
+    display: flex; flex-direction: column; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .flash-card .fc-front {
+    font-size: 24px; font-weight: 700; color: var(--text); line-height: 1.4;
+  }
+  .flash-card hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+  .flash-card .fc-back {
+    font-size: 16px; color: var(--text-secondary); line-height: 1.55;
+  }
+  .flash-card .fc-meaning {
+    font-size: 13px; color: var(--text-tertiary); margin-top: 6px;
+  }
+  .flash-card .fc-ipa {
+    font-size: 13px; color: var(--text-tertiary); font-style: italic; margin-top: 4px;
+  }
+  .flash-card .fc-example {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--surface-alt);
+    border-radius: var(--r-sm);
+    line-height: 1.4;
+  }
+  .flash-actions {
+    display: flex; gap: 10px; justify-content: center;
+    flex-wrap: wrap;
+  }
+  .flash-actions .btn { min-width: 120px; padding: 10px 24px; font-size: 14px; }
+  .flash-flip {
+    padding: 10px 36px;
+    border: none;
+    border-radius: var(--r-md);
+    background: var(--amber);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .flash-flip:hover { filter: brightness(1.05); }
+  .flash-rate-no {
+    padding: 10px 28px;
+    border: none;
+    border-radius: var(--r-md);
+    background: var(--red-soft);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .flash-rate-yes {
+    padding: 10px 28px;
+    border: none;
+    border-radius: var(--r-md);
+    background: var(--green-soft);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* SRS Book / Review List */
+  .srs-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 6px;
+  }
+  .srs-row.due { border-left: 3px solid var(--red); }
+  .srs-row .sr-main { flex: 1; min-width: 0; }
+  .srs-row .sr-en { font-size: 14px; font-weight: 700; color: var(--text); }
+  .srs-row .sr-ipa { font-size: 11px; color: var(--text-tertiary); font-style: italic; margin-left: 6px; }
+  .srs-row .sr-cn { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .srs-row .sr-due { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+
+  /* Settings modal */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,.4);
+    z-index: 1000;
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-backdrop.visible { display: flex; }
+  .modal {
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 460px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-head {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+  }
+  .modal-head h3 { margin: 0; font-size: 16px; font-weight: 800; flex: 1; }
+  .modal-head .close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    font-size: 20px;
+    line-height: 1;
+    padding: 0 4px;
+  }
+  .modal-body { padding: 18px 20px; }
+  .modal-body .group { margin-bottom: 18px; }
+  .modal-body .group:last-child { margin-bottom: 0; }
+  .modal-body .group h4 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--text-tertiary);
+  }
+  .radio-row {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    margin-bottom: 6px;
+    cursor: pointer;
+  }
+  .radio-row:hover { background: var(--surface-alt); }
+  .radio-row input { margin-top: 2px; }
+  .radio-row .rr-label {
+    font-size: 13px; font-weight: 600; color: var(--text);
+  }
+  .radio-row .rr-desc {
+    font-size: 11px; color: var(--text-tertiary); margin-top: 2px;
+  }
+  .switch-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 0;
+  }
+  .switch-row label { font-size: 13px; color: var(--text); }
+
+  /* Onboarding modal */
+  .onboard {
+    text-align: left;
+    line-height: 1.7;
+    font-size: 13px;
+  }
+  .onboard p { margin: 0 0 10px; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--text);
+    color: #f5f7fb;
+    padding: 10px 22px;
+    border-radius: var(--r-md);
+    font-size: 12px;
+    font-weight: 600;
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+    z-index: 2000;
+    box-shadow: var(--shadow-lg);
+    max-width: 80vw;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { background: var(--green); }
+  .toast.error { background: var(--red); }
+
+  /* Help */
+  .kbd-hint {
+    font-size: 10px;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--text-tertiary);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  /* Footer */
+  footer.foot {
+    margin-top: 24px;
+    padding: 14px 4px;
+    color: var(--text-tertiary);
+    font-size: 11px;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 540px) {
+    .app { padding: 12px; }
+    header.top { flex-wrap: wrap; }
+    header.top .stats { width: 100%; margin-left: 0; }
+    .quiz-prompt { font-size: 19px; }
+    .daily-header { flex-wrap: wrap; }
+    .daily-header .dh-right { width: 100%; margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <h1>Barry Quiz</h1>
+    <span class="sub" data-i18n="header_sub">SM-2 间隔复习</span>
+    <div class="stats">
+      <span><span data-i18n="stats_today">今日</span>: <b id="stat-today">0</b></span>
+      <span><span data-i18n="stats_reviewed">已复习</span>: <b id="stat-reviewed">0</b></span>
+      <span><span data-i18n="stats_acc">正确率</span>: <b id="stat-acc">—</b></span>
+      <button class="gear-btn" id="open-settings" data-i18n-title="settings_title" title="设置">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <button class="nav-btn active" data-view="daily" data-i18n="nav_daily">今日训练</button>
+    <button class="nav-btn" data-view="sessions" data-i18n="nav_sessions">训练词汇</button>
+    <button class="nav-btn" data-view="study" data-i18n="nav_study">自由练习</button>
+    <button class="nav-btn" data-view="review" data-i18n="nav_review">我的复习</button>
+  </nav>
+
+  <main>
+    <!-- DAILY VIEW (default home screen) -->
+    <section class="view active" id="view-daily">
+      <div id="daily-container"></div>
+    </section>
+
+    <!-- SESSIONS VIEW -->
+    <section class="view" id="view-sessions">
+      <div class="tip-box" data-i18n="sessions_tip">这是你训练时自动积累的词汇,按日期分组。点 Study 进入翻面复习。</div>
+      <div id="sessions-list" class="list-grid"></div>
+      <div id="session-study-wrap"></div>
+    </section>
+
+    <!-- STUDY (Free) VIEW -->
+    <section class="view" id="view-study">
+      <div id="study-source-wrap"></div>
+      <div id="study-card-wrap"></div>
+    </section>
+
+    <!-- REVIEW LIST VIEW -->
+    <section class="view" id="view-review">
+      <div id="review-list-wrap"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span data-i18n="footer_text">Barry English Toolkit · Quiz Web · 词汇来源</span>
+    <code>~/.barry-english/fancy-vocab.md</code>
+    · <span class="kbd-hint">?</span> <span data-i18n="footer_shortcuts">查看快捷键</span>
+  </footer>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Settings modal -->
+<div class="modal-backdrop" id="settings-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 data-i18n="settings_title">设置</h3>
+      <button class="close-btn" id="close-settings">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="group">
+        <h4 data-i18n="settings_language">语言 / Language</h4>
+        <label class="radio-row">
+          <input type="radio" name="lang" value="zh" />
+          <div><div class="rr-label" data-i18n="lang_zh_label">中文(默认)</div></div>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="lang" value="en" />
+          <div><div class="rr-label" data-i18n="lang_en_label">English</div></div>
+        </label>
+      </div>
+
+      <div class="group">
+        <h4 data-i18n="settings_tts">发音引擎</h4>
+        <label class="radio-row">
+          <input type="radio" name="tts-engine" value="google" />
+          <div>
+            <div class="rr-label" data-i18n="tts_google_label">Google(默认推荐)</div>
+            <div class="rr-desc" data-i18n="tts_google_desc">音质最高。无法连接时自动切换到浏览器内置发音。</div>
+          </div>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="tts-engine" value="system" />
+          <div>
+            <div class="rr-label" data-i18n="tts_system_label">系统</div>
+            <div class="rr-desc" data-i18n="tts_system_desc">服务端调用 Mac say / Windows SAPI / Linux espeak。稳定、离线可用。</div>
+          </div>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="tts-engine" value="browser" />
+          <div>
+            <div class="rr-label" data-i18n="tts_browser_label">浏览器(兜底)</div>
+            <div class="rr-desc" data-i18n="tts_browser_desc">浏览器内置 speechSynthesis。零延迟、无需联网,音质因系统而异。</div>
+          </div>
+        </label>
+        <div style="margin-top: 8px; display: flex; gap: 8px;">
+          <button class="btn" id="test-tts" data-i18n="tts_test">测试发音</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h4 data-i18n="settings_accent">口音</h4>
+        <label class="radio-row">
+          <input type="radio" name="tts-accent" value="british" />
+          <div><div class="rr-label" data-i18n="accent_british">英音(en-GB)</div></div>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="tts-accent" value="american" />
+          <div><div class="rr-label" data-i18n="accent_american">美音(en-US)</div></div>
+        </label>
+      </div>
+
+      <div class="group">
+        <h4 data-i18n="settings_difficulty">Quiz 难度</h4>
+        <label class="radio-row">
+          <input type="radio" name="difficulty" value="normal" />
+          <div>
+            <div class="rr-label" data-i18n="difficulty_normal">Normal(默认)</div>
+            <div class="rr-desc" data-i18n="difficulty_normal_desc">每日 5 题混合英→中选择题 + 中→英拼写题。适合 B1+ 学员。</div>
+          </div>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="difficulty" value="easy" />
+          <div>
+            <div class="rr-label" data-i18n="difficulty_easy">Easy</div>
+            <div class="rr-desc" data-i18n="difficulty_easy_desc">每日 5 题全部英→中选择题(跳过拼写题)。适合 A1/A2 学员前 1-2 周建立信心。</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="group">
+        <h4 data-i18n="settings_sound">音效</h4>
+        <div class="switch-row">
+          <input type="checkbox" id="ding-toggle" />
+          <label for="ding-toggle" data-i18n="sound_chime_label">答对时播放音效</label>
+        </div>
+      </div>
+
+      <div class="group">
+        <h4 data-i18n="settings_shortcuts">快捷键</h4>
+        <div id="kbd-hints" style="font-size: 12px; color: var(--text-secondary); line-height: 1.7;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Onboarding modal (first visit only) -->
+<div class="modal-backdrop" id="onboard-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 data-i18n="onboard_title">欢迎使用 Barry Quiz Web</h3>
+    </div>
+    <div class="modal-body onboard">
+      <p data-i18n="onboard_p1">每天 5 题已经准备好,混合选择题(英→中)和拼写题(中→英)。</p>
+      <p data-i18n="onboard_p2">发音默认走 <strong>Google TTS</strong>(音质最好)。如果连不上 Google,会自动切到浏览器内置发音 —— 不需要任何配置。</p>
+      <p data-i18n="onboard_p3">你可以随时在<strong>设置(齿轮图标)</strong>里切换发音引擎和界面语言:Google / 系统(离线) / 浏览器。</p>
+      <p data-i18n="onboard_p4">提示:在设置里看键盘快捷键,可以让每日复习快很多。</p>
+      <div style="margin-top: 16px; text-align: right;">
+        <button class="btn primary" id="onboard-start" data-i18n="onboard_start_btn">开始练习</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Barry Quiz Web — single-file client
+   ============================================================ */
+
+// ---------- Utilities ----------
+function $(sel, root) { return (root || document).querySelector(sel); }
+function $$(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+function todayKey() {
+  var n = new Date();
+  return n.getFullYear() + '-' + pad2(n.getMonth() + 1) + '-' + pad2(n.getDate());
+}
+function nowSec() { return Math.floor(Date.now() / 1000); }
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+function escapeHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/* ============================================================
+   I18N — Chinese is default; switching re-renders everything
+   ============================================================ */
+var I18N = {
+  zh: {
+    // Header / nav
+    header_sub: 'SM-2 间隔复习',
+    stats_today: '今日',
+    stats_reviewed: '已复习',
+    stats_acc: '正确率',
+    nav_daily: '今日训练',
+    nav_sessions: '训练词汇',
+    nav_study: '自由练习',
+    nav_review: '我的复习',
+    sessions_tip: '这是你训练时自动积累的词汇,按日期分组。点「开始」进入翻面复习。',
+    footer_text: 'Barry English Toolkit · Quiz Web · 词汇来源',
+    footer_shortcuts: '查看快捷键',
+
+    // Settings modal
+    settings_title: '设置',
+    settings_language: '语言 / Language',
+    lang_zh_label: '中文(默认)',
+    lang_en_label: 'English',
+    settings_tts: '发音引擎',
+    tts_google_label: 'Google(默认推荐)',
+    tts_google_desc: '音质最高。无法连接时自动切换到浏览器内置发音。',
+    tts_system_label: '系统',
+    tts_system_desc: '服务端调用 Mac say / Windows SAPI / Linux espeak。稳定、离线可用。',
+    tts_browser_label: '浏览器(兜底)',
+    tts_browser_desc: '浏览器内置 speechSynthesis。零延迟、无需联网,音质因系统而异。',
+    tts_test: '测试发音',
+    settings_accent: '口音',
+    accent_british: '英音(en-GB)',
+    accent_american: '美音(en-US)',
+    settings_difficulty: 'Quiz 难度',
+    difficulty_normal: 'Normal(默认)',
+    difficulty_normal_desc: '每日 5 题混合英→中选择题 + 中→英拼写题。适合 B1+ 学员。',
+    difficulty_easy: 'Easy',
+    difficulty_easy_desc: '每日 5 题全部英→中选择题(跳过拼写题)。适合 A1/A2 学员前 1-2 周建立信心。',
+    settings_sound: '音效',
+    sound_chime_label: '答对时播放音效',
+    settings_shortcuts: '快捷键',
+    kbd_mc: '选择题:<span class="kbd-hint">1</span>-<span class="kbd-hint">4</span> 选选项',
+    kbd_fill: '拼写题:<span class="kbd-hint">Enter</span> 提交',
+    kbd_daily: '每日流程:<span class="kbd-hint">Space</span> / <span class="kbd-hint">Enter</span> 下一题',
+    kbd_flash: '翻面卡:<span class="kbd-hint">Space</span> 翻面 · <span class="kbd-hint">1</span>(<span class="kbd-hint">j</span>) 不认识 · <span class="kbd-hint">2</span>(<span class="kbd-hint">k</span>) 认识',
+    kbd_global: '全局:<span class="kbd-hint">Esc</span> 返回 · <span class="kbd-hint">?</span> 显示此面板',
+
+    // Onboarding
+    onboard_title: '欢迎使用 Barry Quiz Web',
+    onboard_p1: '每天 5 题已经准备好,混合选择题(英→中)和拼写题(中→英)。',
+    onboard_p2: '发音默认走 <strong>Google TTS</strong>(音质最好)。如果连不上 Google,会自动切到浏览器内置发音 —— 不需要任何配置。',
+    onboard_p3: '你可以随时在<strong>设置(齿轮图标)</strong>里切换发音引擎和界面语言:Google / 系统(离线) / 浏览器。',
+    onboard_p4: '提示:在设置里看键盘快捷键,可以让每日复习快很多。',
+    onboard_start_btn: '开始练习',
+
+    // Daily mode
+    empty_no_vocab_title: '还没有加载词汇',
+    empty_no_vocab_hint: '把训练产出保存到 <code>~/.barry-english/fancy-vocab.md</code>,然后刷新页面。',
+    empty_min_vocab_title: '至少需要 4 条词汇',
+    empty_min_vocab_hint: '把更多词条加到 <code>~/.barry-english/fancy-vocab.md</code> 然后刷新。',
+    daily_title: '今日 5 题',
+    daily_refresh_title: '丢弃今日已答,重新生成 5 题',
+    daily_refresh_btn: '刷新',
+    daily_refresh_confirm: '丢弃今天的答题记录,重新生成一组 5 题?',
+    daily_refresh_done: '已生成新的今日 5 题',
+    daily_complete_title: '今日完成',
+    daily_complete_score_a: '答对 ',
+    daily_complete_score_b: ' / ',
+    daily_complete_score_c: ' 题',
+    daily_reset_btn: '重开今日 5 题',
+    daily_goto_review_btn_a: '进入我的复习(',
+    daily_goto_review_btn_b: ' 待复习)',
+    qch_en2cn: '英 → 中:选择正确的中文释义',
+    qch_cn2en: '中 → 英:拼出英文',
+    review_tag: '复习',
+    listen_btn: '听单词',
+    listen_sentence_btn: '听完整例句',
+    submit_btn: '提交',
+    next_btn: '下一题 →',
+    letters_unit: ' 个字母',
+    correct_answer_label: '正确答案:',
+    fb_correct: '✓ 答对了',
+    fb_wrong: '✗ 答错了',
+    fb_english: '英文',
+    fb_meaning: '英文释义',
+    fb_chinese: '中文',
+    fb_example: '例句',
+
+    // Sessions list
+    empty_sessions_title: '还没有词汇 Sessions',
+    empty_sessions_hint: '把训练产出保存到 <code>~/.barry-english/fancy-vocab.md</code>,然后刷新页面。',
+    foundational_label: '基础词',
+    cards_unit: ' 张卡',
+    study_btn: '开始',
+    flash_session_prefix: '来自 Session: ',
+
+    // Flashcard mode
+    flash_no_due_title: '当前没有待复习的卡片',
+    flash_no_due_hint: '这一组卡片都被安排到稍后复习。',
+    flash_back_btn: '返回',
+    flash_round_complete: '本轮完成',
+    flash_reviewed_a: '本轮复习了 ',
+    flash_reviewed_b: ' 张卡',
+    flash_again_btn: '再来一轮',
+    flash_exit_btn: '退出',
+    flash_flip_btn: '翻面',
+    flash_dont_know_btn: '不认识',
+    flash_know_btn: '认识',
+    flash_session_no_cards: '该 Session 没有卡片',
+
+    // Free study
+    free_picker_title: '选一个来源开始自由练习(选择题)',
+    free_picker_start: '开始',
+    free_opt_all_a: '全部词汇(',
+    free_opt_all_b: ' 条)',
+    free_opt_due: '待复习(SM-2)',
+    free_opt_session_prefix: 'Session — ',
+    free_no_sources: '暂无可用来源',
+    free_nothing_title: '没有可练习的内容',
+    free_nothing_hint: '该来源还没有卡片。',
+    free_complete_title: '本轮完成',
+    free_restart_btn: '再来一轮',
+    free_pick_btn: '换一个来源',
+
+    // My Reviews
+    review_empty_title: '复习清单还是空的',
+    review_empty_hint: '答几道每日训练或翻面卡,就会开始累积复习清单。',
+    review_title: '我的复习',
+    review_total_label: '总计',
+    review_due_label: '待复习',
+    review_due_now: '现在到期',
+    review_next_prefix: '下次:',
+    review_master_btn: '已掌握 ✓',
+    review_mastered_toast_prefix: '已掌握:',
+
+    // Toasts / errors
+    toast_google_unreachable: 'Google TTS 不可达 —— 已切换到浏览器内置发音。可在设置里更换。',
+    toast_system_not_installed: '系统 TTS 未安装 —— 已切换到浏览器',
+    toast_system_failed: '系统 TTS 调用失败 —— 已切换到浏览器',
+    toast_system_unreachable: '系统 TTS 不可达 —— 使用浏览器',
+    toast_load_failed_title: '数据加载失败',
+    test_tts_text: 'Hello, this is a test.',
+  },
+  en: {
+    header_sub: 'SM-2 spaced repetition',
+    stats_today: 'Today',
+    stats_reviewed: 'Reviewed',
+    stats_acc: 'Accuracy',
+    nav_daily: 'Daily',
+    nav_sessions: 'Sessions',
+    nav_study: 'Free Study',
+    nav_review: 'My Reviews',
+    sessions_tip: 'These are vocabulary entries automatically saved from your daily training, grouped by date. Click Study to enter flashcard review.',
+    footer_text: 'Barry English Toolkit · Quiz Web · vocab from',
+    footer_shortcuts: 'for shortcuts',
+
+    settings_title: 'Settings',
+    settings_language: 'Language / 语言',
+    lang_zh_label: '中文 (default)',
+    lang_en_label: 'English',
+    settings_tts: 'TTS Engine',
+    tts_google_label: 'Google (default)',
+    tts_google_desc: 'Highest audio quality. Auto-falls back to Browser if unreachable.',
+    tts_system_label: 'System',
+    tts_system_desc: 'Server runs Mac say / Windows SAPI / Linux espeak. Stable, offline.',
+    tts_browser_label: 'Browser (fallback)',
+    tts_browser_desc: 'Built-in speechSynthesis. Zero latency, no network. Quality varies by OS.',
+    tts_test: 'Test TTS',
+    settings_accent: 'Accent',
+    accent_british: 'British (en-GB)',
+    accent_american: 'American (en-US)',
+    settings_difficulty: 'Quiz Difficulty',
+    difficulty_normal: 'Normal (default)',
+    difficulty_normal_desc: 'Daily 5 questions mix EN→CN multiple choice + CN→EN spelling. For B1+ learners.',
+    difficulty_easy: 'Easy',
+    difficulty_easy_desc: 'Daily 5 questions all EN→CN multiple choice (skip spelling). For A1/A2 learners building confidence in first 1-2 weeks.',
+    settings_sound: 'Sound',
+    sound_chime_label: 'Play chime on correct answer',
+    settings_shortcuts: 'Keyboard Shortcuts',
+    kbd_mc: 'Multiple choice: <span class="kbd-hint">1</span>-<span class="kbd-hint">4</span> select option',
+    kbd_fill: 'Fill-in-blank: <span class="kbd-hint">Enter</span> submit',
+    kbd_daily: 'Daily flow: <span class="kbd-hint">Space</span>/<span class="kbd-hint">Enter</span> next question',
+    kbd_flash: 'Flashcard: <span class="kbd-hint">Space</span> flip / <span class="kbd-hint">1</span>(<span class="kbd-hint">j</span>) don\'t know / <span class="kbd-hint">2</span>(<span class="kbd-hint">k</span>) know',
+    kbd_global: 'Global: <span class="kbd-hint">Esc</span> back · <span class="kbd-hint">?</span> show this',
+
+    onboard_title: 'Welcome to Barry Quiz Web',
+    onboard_p1: 'Your daily 5 questions are ready. Mix of multiple-choice (English to Chinese) and spelling fill-in (Chinese to English).',
+    onboard_p2: 'Pronunciation defaults to <strong>Google TTS</strong> (highest quality). If your network can\'t reach Google, it auto-falls back to your browser\'s built-in voice — no setup needed.',
+    onboard_p3: 'You can switch the TTS engine and interface language anytime in <strong>Settings (gear icon)</strong>: Google / System (offline) / Browser.',
+    onboard_p4: 'Tip: keyboard shortcuts in Settings make daily reviews much faster.',
+    onboard_start_btn: 'Start practicing',
+
+    empty_no_vocab_title: 'No vocab loaded',
+    empty_no_vocab_hint: 'Save your training output to <code>~/.barry-english/fancy-vocab.md</code>, then reload.',
+    empty_min_vocab_title: 'Need at least 4 vocabulary entries',
+    empty_min_vocab_hint: 'Add more entries to <code>~/.barry-english/fancy-vocab.md</code> and reload.',
+    daily_title: 'Daily Quiz',
+    daily_refresh_title: 'Discard today\'s session and generate fresh questions',
+    daily_refresh_btn: 'Refresh',
+    daily_refresh_confirm: 'Discard today\'s answers and generate a fresh set of 5?',
+    daily_refresh_done: 'New daily questions generated',
+    daily_complete_title: 'Daily complete',
+    daily_complete_score_a: '',
+    daily_complete_score_b: ' / ',
+    daily_complete_score_c: ' correct',
+    daily_reset_btn: 'Generate new daily',
+    daily_goto_review_btn_a: 'Open My Reviews (',
+    daily_goto_review_btn_b: ' due)',
+    qch_en2cn: 'EN → CN: pick the meaning',
+    qch_cn2en: 'CN → EN: spell the word',
+    review_tag: 'Review',
+    listen_btn: 'Listen',
+    listen_sentence_btn: 'Listen to sentence',
+    submit_btn: 'Submit',
+    next_btn: 'Next →',
+    letters_unit: ' letters',
+    correct_answer_label: 'Correct answer:',
+    fb_correct: '✓ Correct',
+    fb_wrong: '✗ Wrong',
+    fb_english: 'English',
+    fb_meaning: 'Meaning',
+    fb_chinese: 'Chinese',
+    fb_example: 'Example',
+
+    empty_sessions_title: 'No vocab sessions yet',
+    empty_sessions_hint: 'Save your training output to <code>~/.barry-english/fancy-vocab.md</code>, then reload.',
+    foundational_label: 'Foundational',
+    cards_unit: ' cards',
+    study_btn: 'Study',
+    flash_session_prefix: 'Session: ',
+
+    flash_no_due_title: 'Nothing due right now',
+    flash_no_due_hint: 'All cards in this set are scheduled for later.',
+    flash_back_btn: 'Back',
+    flash_round_complete: 'Round complete',
+    flash_reviewed_a: 'Reviewed ',
+    flash_reviewed_b: ' cards',
+    flash_again_btn: 'Study again',
+    flash_exit_btn: 'Exit',
+    flash_flip_btn: 'Flip',
+    flash_dont_know_btn: 'Don\'t know',
+    flash_know_btn: 'Know it',
+    flash_session_no_cards: 'Session has no cards',
+
+    free_picker_title: 'Pick a source for free study (multiple choice)',
+    free_picker_start: 'Start',
+    free_opt_all_a: 'All vocabulary (',
+    free_opt_all_b: ')',
+    free_opt_due: 'Due reviews (SM-2)',
+    free_opt_session_prefix: 'Session — ',
+    free_no_sources: 'No sources available',
+    free_nothing_title: 'Nothing to study',
+    free_nothing_hint: 'This source has no cards yet.',
+    free_complete_title: 'Session complete',
+    free_restart_btn: 'Study again',
+    free_pick_btn: 'Pick another source',
+
+    review_empty_title: 'No reviews scheduled',
+    review_empty_hint: 'Answer some Daily questions or Flashcards to start building your review list.',
+    review_title: 'My Reviews',
+    review_total_label: 'Total',
+    review_due_label: 'Due',
+    review_due_now: 'Due now',
+    review_next_prefix: 'Next: ',
+    review_master_btn: 'Mastered ✓',
+    review_mastered_toast_prefix: 'Mastered: ',
+
+    toast_google_unreachable: 'Google TTS unreachable — falling back to browser voice. Open Settings to change.',
+    toast_system_not_installed: 'System TTS not installed — falling back to browser',
+    toast_system_failed: 'System TTS failed — falling back to browser',
+    toast_system_unreachable: 'System TTS unreachable — using browser',
+    toast_load_failed_title: 'Could not load data',
+    test_tts_text: 'Hello, this is a test.',
+  }
+};
+function t(key) {
+  return (I18N[settings.lang] && I18N[settings.lang][key]) || I18N.en[key] || key;
+}
+
+function applyI18N() {
+  // Update <html lang>
+  document.documentElement.setAttribute('lang', settings.lang === 'en' ? 'en' : 'zh-CN');
+  // textContent / innerHTML for elements with data-i18n
+  $$('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    var v = t(key);
+    // If the value contains HTML (kbd hints, <strong>, <code>), use innerHTML
+    if (/<\w/.test(v)) el.innerHTML = v;
+    else el.textContent = v;
+  });
+  $$('[data-i18n-title]').forEach(function(el) {
+    el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
+  });
+  $$('[data-i18n-placeholder]').forEach(function(el) {
+    el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+  });
+
+  // Render the keyboard hint block (5 lines)
+  var kh = $('#kbd-hints');
+  if (kh) {
+    kh.innerHTML =
+      '<div>' + t('kbd_mc') + '</div>' +
+      '<div>' + t('kbd_fill') + '</div>' +
+      '<div>' + t('kbd_daily') + '</div>' +
+      '<div>' + t('kbd_flash') + '</div>' +
+      '<div>' + t('kbd_global') + '</div>';
+  }
+}
+
+function refreshCurrentView() {
+  // Re-render whichever view is currently active
+  if (currentView === 'daily') renderDaily();
+  else if (currentView === 'sessions') renderSessions();
+  else if (currentView === 'study') {
+    // If a free-study session is in progress, re-render the card; else re-render the picker
+    if (studyState) renderStudyCard();
+    else renderStudySource();
+  }
+  else if (currentView === 'review') renderReviewList();
+
+  // If a flash session is open within sessions view, re-render it too
+  if (flashState) renderFlashStudy();
+}
+
+function setLang(lang) {
+  if (lang !== 'zh' && lang !== 'en') return;
+  settings.lang = lang;
+  saveSettings();
+  applyI18N();
+  refreshCurrentView();
+}
+
+// ---------- Toast ----------
+var _toastTimer = null;
+function toast(msg, kind) {
+  var t = $('#toast');
+  if (!t) return;
+  t.className = 'toast' + (kind ? ' ' + kind : '') + ' show';
+  t.textContent = msg;
+  if (_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2400);
+}
+
+// ---------- Settings (localStorage) ----------
+var SETTINGS_KEY = 'quiz_settings_v1';
+var settings = { lang: 'zh', ttsEngine: 'google', ttsAccent: 'british', soundOn: true, difficulty: 'normal' };
+var _googleFailedShown = false;
+try {
+  var raw = localStorage.getItem(SETTINGS_KEY);
+  if (raw) settings = Object.assign(settings, JSON.parse(raw));
+} catch (e) {}
+function saveSettings() { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
+
+// ---------- SM-2 algorithm ----------
+var SM2 = {
+  LEARNING_STEPS: [1, 10],     // minutes
+  RELEARNING_STEPS: [10],      // minutes
+  GRADUATING_INTERVAL: 1,      // days
+  MIN_EASE: 1.3,
+  DEFAULT_EASE: 2.5
+};
+
+// SRS book in localStorage. type: 0=new 1=learning 2=review 3=relearning
+var srsBook = [];
+try { srsBook = JSON.parse(localStorage.getItem('srs_book') || '[]'); } catch (e) { srsBook = []; }
+function saveSrsBook() { localStorage.setItem('srs_book', JSON.stringify(srsBook)); }
+function findEntry(key) {
+  for (var i = 0; i < srsBook.length; i++) if (srsBook[i].en === key) return srsBook[i];
+  return null;
+}
+function ensureEntry(key) {
+  var e = findEntry(key);
+  if (e) return e;
+  e = {
+    en: key, ease: SM2.DEFAULT_EASE, interval: 0,
+    type: 0, step: 0, due: nowSec(),
+    reps: 0, lapses: 0, wrongCount: 0, lastWrong: null
+  };
+  srsBook.push(e);
+  return e;
+}
+
+function sm2Review(entry, isCorrect) {
+  var now = nowSec();
+  if (isCorrect) {
+    if (entry.type === 0 || entry.type === 1) {
+      entry.step = (entry.step || 0) + 1;
+      if (entry.step >= SM2.LEARNING_STEPS.length) {
+        entry.type = 2;
+        entry.interval = SM2.GRADUATING_INTERVAL;
+        entry.due = now + entry.interval * 86400;
+        entry.reps = (entry.reps || 0) + 1;
+      } else {
+        entry.type = 1;
+        entry.due = now + SM2.LEARNING_STEPS[entry.step] * 60;
+      }
+    } else if (entry.type === 2) {
+      entry.interval = Math.max((entry.interval || 1) + 1,
+                                Math.round((entry.interval || 1) * (entry.ease || SM2.DEFAULT_EASE)));
+      entry.due = now + entry.interval * 86400;
+      entry.reps = (entry.reps || 0) + 1;
+    } else if (entry.type === 3) {
+      entry.step = (entry.step || 0) + 1;
+      if (entry.step >= SM2.RELEARNING_STEPS.length) {
+        entry.type = 2;
+        entry.due = now + Math.max(entry.interval || 1, 1) * 86400;
+        entry.reps = (entry.reps || 0) + 1;
+      } else {
+        entry.due = now + SM2.RELEARNING_STEPS[entry.step] * 60;
+      }
+    }
+  } else {
+    entry.wrongCount = (entry.wrongCount || 0) + 1;
+    entry.lastWrong = todayKey();
+    if (entry.type === 0 || entry.type === 1) {
+      entry.type = 1; entry.step = 0;
+      entry.due = now + SM2.LEARNING_STEPS[0] * 60;
+    } else if (entry.type === 2) {
+      entry.ease = Math.max(SM2.MIN_EASE, (entry.ease || SM2.DEFAULT_EASE) - 0.2);
+      entry.interval = Math.max(1, Math.round((entry.interval || 1) * 0.5));
+      entry.type = 3; entry.step = 0;
+      entry.lapses = (entry.lapses || 0) + 1;
+      entry.due = now + SM2.RELEARNING_STEPS[0] * 60;
+    } else if (entry.type === 3) {
+      entry.step = 0;
+      entry.due = now + SM2.RELEARNING_STEPS[0] * 60;
+    }
+  }
+  saveSrsBook();
+}
+
+function srsAnswerCorrect(enKey) {
+  var entry = ensureEntry(enKey);
+  sm2Review(entry, true);
+}
+function srsAnswerWrong(enKey) {
+  var entry = ensureEntry(enKey);
+  sm2Review(entry, false);
+}
+function getDueReviews() {
+  var now = nowSec();
+  return srsBook.filter(function(e) { return e.type !== 0 && e.due <= now; });
+}
+
+function unixToDateStr(ts) {
+  var d = new Date(ts * 1000);
+  return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+}
+function formatInterval(days) {
+  if (!days || days < 1) return '<1d';
+  if (days === 1) return '1d';
+  if (days < 30) return days + 'd';
+  if (days < 365) return Math.round(days / 30) + 'mo';
+  return (days / 365).toFixed(1) + 'y';
+}
+
+// ---------- Daily stats ----------
+var statsKey = 'quiz_stats_' + todayKey();
+var todayStats = { learned: 0, reviewed: 0, correct: 0, attempts: 0 };
+try {
+  var rawStats = localStorage.getItem(statsKey);
+  if (rawStats) todayStats = JSON.parse(rawStats);
+} catch (e) {}
+function saveStats() { localStorage.setItem(statsKey, JSON.stringify(todayStats)); renderStats(); }
+function renderStats() {
+  $('#stat-today').textContent = todayStats.learned + todayStats.reviewed;
+  $('#stat-reviewed').textContent = srsBook.filter(function(e){ return e.type === 2; }).length;
+  $('#stat-acc').textContent = todayStats.attempts > 0
+    ? Math.round(todayStats.correct / todayStats.attempts * 100) + '%'
+    : '—';
+}
+
+// ---------- Sound: playDing (Web Audio API) ----------
+var audioCtx = null;
+function playDing() {
+  if (!settings.soundOn) return;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var now = audioCtx.currentTime;
+    // Two-note bell
+    var o1 = audioCtx.createOscillator(); var g1 = audioCtx.createGain();
+    o1.type = 'sine'; o1.frequency.value = 1318.5; // E6
+    g1.gain.setValueAtTime(0, now);
+    g1.gain.linearRampToValueAtTime(0.22, now + 0.01);
+    g1.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
+    o1.connect(g1); g1.connect(audioCtx.destination);
+    o1.start(now); o1.stop(now + 0.7);
+
+    var o2 = audioCtx.createOscillator(); var g2 = audioCtx.createGain();
+    o2.type = 'sine'; o2.frequency.value = 1661.2; // G#6
+    g2.gain.setValueAtTime(0, now + 0.08);
+    g2.gain.linearRampToValueAtTime(0.16, now + 0.09);
+    g2.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+    o2.connect(g2); g2.connect(audioCtx.destination);
+    o2.start(now + 0.08); o2.stop(now + 0.6);
+  } catch (e) {}
+}
+
+// ---------- TTS dispatcher ----------
+var _voices = [];
+function loadVoices() {
+  if (!('speechSynthesis' in window)) return;
+  _voices = window.speechSynthesis.getVoices() || [];
+}
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+function pickBrowserVoice() {
+  if (!_voices.length) return null;
+  var langPref = settings.ttsAccent === 'american' ? /en-US/i : /en-GB/i;
+  var preferred = _voices.find(function(v) { return langPref.test(v.lang) && /female|samantha|kate|serena|moira|daniel|kyoko/i.test(v.name); });
+  if (preferred) return preferred;
+  preferred = _voices.find(function(v) { return langPref.test(v.lang); });
+  if (preferred) return preferred;
+  preferred = _voices.find(function(v) { return /en/i.test(v.lang); });
+  return preferred || null;
+}
+
+var _ttsAudio = null;
+function _stopAudio() {
+  if (_ttsAudio) { try { _ttsAudio.pause(); } catch (e) {} _ttsAudio = null; }
+  if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch (e) {} }
+}
+function _speakBrowser(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  try { window.speechSynthesis.cancel(); } catch (e) {}
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = settings.ttsAccent === 'american' ? 'en-US' : 'en-GB';
+  u.rate = 0.95;
+  u.pitch = 1;
+  var v = pickBrowserVoice();
+  if (v) u.voice = v;
+  if (btn) {
+    btn.classList.add('playing');
+    u.onend = function() { btn.classList.remove('playing'); };
+    u.onerror = function() { btn.classList.remove('playing'); };
+  }
+  window.speechSynthesis.speak(u);
+}
+function _speakUrl(url, btn, fallback) {
+  _stopAudio();
+  if (btn) btn.classList.add('playing');
+  _ttsAudio = new Audio(url);
+  _ttsAudio.onended = function() { if (btn) btn.classList.remove('playing'); _ttsAudio = null; };
+  _ttsAudio.onerror = function() {
+    if (btn) btn.classList.remove('playing');
+    _ttsAudio = null;
+    if (fallback) fallback();
+  };
+  _ttsAudio.play().catch(function() {
+    if (btn) btn.classList.remove('playing');
+    _ttsAudio = null;
+    if (fallback) fallback();
+  });
+}
+function speak(text, btn) {
+  if (!text) return;
+  var safe = String(text).slice(0, 400);
+  // 过滤 CJK 字符 + 全角中文标点,避免系统 TTS 读中文乱码(英文引擎读中文会发音错乱)
+  safe = safe.replace(/[一-鿿　-〿＀-￯]+/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!safe) return; // 全是中文 → 不读
+  var encoded = encodeURIComponent(safe);
+  if (settings.ttsEngine === 'browser') {
+    _speakBrowser(safe, btn);
+    return;
+  }
+  if (settings.ttsEngine === 'system') {
+    _speakUrl('/api/tts/system?text=' + encoded + '&accent=' + settings.ttsAccent, btn, function() {
+      // System TTS unavailable — show toast and fall back to browser
+      fetch('/api/tts/system?text=hi&accent=' + settings.ttsAccent).then(function(r) {
+        if (r.status === 503) toast(t('toast_system_not_installed'), 'error');
+        else toast(t('toast_system_failed'), 'error');
+      }).catch(function() { toast(t('toast_system_unreachable'), 'error'); });
+      _speakBrowser(safe, btn);
+    });
+    return;
+  }
+  if (settings.ttsEngine === 'google') {
+    var lang = settings.ttsAccent === 'american' ? 'en-US' : 'en-GB';
+    _speakUrl('/api/tts/google?text=' + encoded + '&lang=' + lang, btn, function() {
+      // Silent fallback to browser (only show toast once per session)
+      if (!_googleFailedShown) {
+        toast(t('toast_google_unreachable'), 'error');
+        _googleFailedShown = true;
+      }
+      _speakBrowser(safe, btn);
+    });
+    return;
+  }
+  _speakBrowser(safe, btn);
+}
+
+// ---------- Data state ----------
+var VOCAB = [];
+var SESSIONS = [];
+
+function api(path, opts) {
+  return fetch(path, opts).then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  });
+}
+
+function loadAll() {
+  return Promise.all([
+    api('/api/vocab').then(function(d) { VOCAB = d.vocab || []; }),
+    api('/api/vocab/sessions').then(function(d) { SESSIONS = d.sessions || []; })
+  ]);
+}
+
+// ---------- View routing ----------
+var currentView = 'daily';
+function switchView(name) {
+  currentView = name;
+  $$('.nav-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.view === name); });
+  $$('.view').forEach(function(v) { v.classList.toggle('active', v.id === 'view-' + name); });
+  if (name === 'daily') renderDaily();
+  if (name === 'sessions') { $('#session-study-wrap').innerHTML = ''; renderSessions(); }
+  if (name === 'study') { $('#study-card-wrap').innerHTML = ''; renderStudySource(); }
+  if (name === 'review') renderReviewList();
+}
+$$('.nav-btn').forEach(function(b) {
+  b.addEventListener('click', function() { switchView(b.dataset.view); });
+});
+
+/* ============================================================
+   DAILY MODE — 5 questions, mixed en2cn / cn2en
+   ============================================================ */
+
+var QUIZ_VERSION = 2;
+var QUIZ_DAILY_COUNT = 5;
+var quizDailyKey = 'quiz_session_' + todayKey();
+var quizSession = null;
+try {
+  quizSession = JSON.parse(localStorage.getItem(quizDailyKey));
+  if (quizSession && quizSession.version !== QUIZ_VERSION) {
+    quizSession = null;
+    localStorage.removeItem(quizDailyKey);
+  }
+} catch (e) { quizSession = null; }
+function saveQuizSession() { localStorage.setItem(quizDailyKey, JSON.stringify(quizSession)); }
+function clearTodaySession() {
+  quizSession = null;
+  localStorage.removeItem(quizDailyKey);
+}
+
+function findVocabByEn(en) {
+  for (var i = 0; i < VOCAB.length; i++) if (VOCAB[i].en === en) return VOCAB[i];
+  return null;
+}
+
+// Conjugation helper for cn2en blank matching
+function getConjugations(base) {
+  var b = base.toLowerCase();
+  var variants = [b];
+  if (b.endsWith('e')) {
+    variants.push(b + 'd');
+    variants.push(b + 's');
+  } else if (b.endsWith('y') && b.length > 2 && !/[aeiou]/.test(b[b.length - 2])) {
+    variants.push(b.slice(0, -1) + 'ied');
+    variants.push(b.slice(0, -1) + 'ies');
+  } else {
+    variants.push(b + 'ed');
+    variants.push(b + 's');
+    variants.push(b + 'es');
+    if (/[^aeiou][aeiou][bcdfgklmnprstvz]$/.test(b)) {
+      variants.push(b + b[b.length - 1] + 'ed');
+    }
+  }
+  variants.push(b + 'ing');
+  if (b.endsWith('e')) variants.push(b.slice(0, -1) + 'ing');
+  var irregulars = {
+    'take':['took','taken','takes','taking'],'give':['gave','given','gives','giving'],
+    'go':['went','gone','goes','going'],'come':['came','comes','coming'],
+    'get':['got','gotten','gets','getting'],'make':['made','makes','making'],
+    'see':['saw','seen','sees','seeing'],'know':['knew','known','knows','knowing'],
+    'think':['thought','thinks','thinking'],'find':['found','finds','finding'],
+    'run':['ran','runs','running'],'say':['said','says','saying'],
+    'tell':['told','tells','telling'],'feel':['felt','feels','feeling'],
+    'leave':['left','leaves','leaving'],'write':['wrote','written','writes','writing'],
+    'read':['reads','reading'],'speak':['spoke','spoken','speaks','speaking'],
+    'break':['broke','broken','breaks','breaking'],'drive':['drove','driven','drives','driving'],
+    'begin':['began','begun','begins','beginning'],'keep':['kept','keeps','keeping'],
+    'hold':['held','holds','holding'],'stand':['stood','stands','standing'],
+    'set':['sets','setting'],'cut':['cuts','cutting'],'put':['puts','putting'],
+    'bring':['brought','brings','bringing'],'build':['built','builds','building'],
+    'send':['sent','sends','sending'],'spend':['spent','spends','spending'],
+    'fall':['fell','fallen','falls','falling'],'grow':['grew','grown','grows','growing'],
+    'draw':['drew','drawn','draws','drawing'],'show':['showed','shown','shows','showing'],
+    'rise':['rose','risen','rises','rising'],'lead':['led','leads','leading'],
+    'lose':['lost','loses','losing'],'pay':['paid','pays','paying'],
+    'meet':['met','meets','meeting'],'sit':['sat','sits','sitting'],
+    'win':['won','wins','winning'],'catch':['caught','catches','catching'],
+    'teach':['taught','teaches','teaching'],'buy':['bought','buys','buying'],
+    'wear':['wore','worn','wears','wearing'],'choose':['chose','chosen','chooses','choosing'],
+    'wake':['woke','woken','wakes','waking'],'fly':['flew','flown','flies','flying'],
+    'have':['had','has','having'],'be':['was','were','been','is','am','are','being'],
+    'do':['did','done','does','doing'],'eat':['ate','eaten','eats','eating'],
+    'drink':['drank','drunk','drinks','drinking'],'sing':['sang','sung','sings','singing'],
+    'swim':['swam','swum','swims','swimming'],'throw':['threw','thrown','throws','throwing'],
+    'lie':['lay','lain','lies','lying'],'lay':['laid','lays','laying'],
+    'sleep':['slept','sleeps','sleeping'],'sell':['sold','sells','selling'],
+    'hit':['hits','hitting'],'let':['lets','letting'],'hang':['hung','hangs','hanging'],
+    'dig':['dug','digs','digging'],'light':['lit','lights','lighting'],
+    'bite':['bit','bitten','bites','biting'],'blow':['blew','blown','blows','blowing'],
+    'forgive':['forgave','forgiven','forgives','forgiving'],
+    'forget':['forgot','forgotten','forgets','forgetting'],
+    'hide':['hid','hidden','hides','hiding'],'tear':['tore','torn','tears','tearing'],
+    'shake':['shook','shaken','shakes','shaking'],'freeze':['froze','frozen','freezes','freezing'],
+    'steal':['stole','stolen','steals','stealing'],'stick':['stuck','sticks','sticking'],
+    'strike':['struck','strikes','striking'],'swear':['swore','sworn','swears','swearing'],
+    'spread':['spreads','spreading'],'shut':['shuts','shutting'],
+    'seek':['sought','seeks','seeking'],'feed':['fed','feeds','feeding'],
+    'mean':['meant','means','meaning'],'deal':['dealt','deals','dealing']
+  };
+  if (irregulars[b]) variants = variants.concat(irregulars[b]);
+  return variants;
+}
+
+function findWordInSentence(baseWord, sent) {
+  var variants = getConjugations(baseWord);
+  variants.sort(function(a, b) { return b.length - a.length; });
+  for (var vi = 0; vi < variants.length; vi++) {
+    var v = variants[vi];
+    var re = new RegExp('\\b' + v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+    var match = re.exec(sent);
+    if (match) return { idx: match.index, len: match[0].length, matched: match[0] };
+  }
+  return null;
+}
+
+function generateDailyQuestions() {
+  var pool = VOCAB.slice();
+  if (pool.length < 4) return [];
+
+  // Step 1: due reviews first
+  var dueReviews = getDueReviews();
+  var reviewItems = [];
+  var shuffledDue = shuffle(dueReviews);
+  for (var di = 0; di < shuffledDue.length && reviewItems.length < QUIZ_DAILY_COUNT; di++) {
+    var v = findVocabByEn(shuffledDue[di].en);
+    if (v) reviewItems.push(v);
+  }
+
+  // Step 2: fill remaining with new vocab
+  var usedEn = reviewItems.map(function(v) { return v.en; });
+  var srsEnKeys = srsBook.map(function(e) { return e.en; });
+  var freshPool = shuffle(pool.filter(function(v) {
+    return usedEn.indexOf(v.en) === -1 && srsEnKeys.indexOf(v.en) === -1;
+  }));
+  var newCount = QUIZ_DAILY_COUNT - reviewItems.length;
+  var newItems = freshPool.slice(0, newCount);
+
+  // If still short, allow already-seen-but-not-yet-due
+  if (newItems.length < newCount) {
+    var extra = shuffle(pool.filter(function(v) {
+      return usedEn.indexOf(v.en) === -1 && newItems.every(function(n) { return n.en !== v.en; });
+    }));
+    newItems = newItems.concat(extra.slice(0, newCount - newItems.length));
+  }
+
+  var selected = shuffle(reviewItems.concat(newItems)).slice(0, QUIZ_DAILY_COUNT);
+
+  var questions = [];
+  selected.forEach(function(answer, qi) {
+    // Easy mode: 全 en2cn(对 A 级学员保护,避免 cn2en 字母格拼写打击);Normal: 交替
+    var mode = (settings.difficulty === 'easy') ? 'en2cn' : (qi % 2 === 0 ? 'en2cn' : 'cn2en');
+    var srsEntry = findEntry(answer.en);
+    var isReview = srsEntry !== null;
+
+    if (mode === 'en2cn') {
+      var distractorPool = pool.filter(function(v) { return v.en !== answer.en && v.cn && v.cn !== answer.cn; });
+      var distractors = shuffle(distractorPool).slice(0, 3);
+      var options = shuffle([
+        { text: answer.cn, correct: true },
+        { text: distractors[0] ? distractors[0].cn : '—', correct: false },
+        { text: distractors[1] ? distractors[1].cn : '—', correct: false },
+        { text: distractors[2] ? distractors[2].cn : '—', correct: false }
+      ]);
+      questions.push({
+        mode: mode, prompt: answer.en, hint: answer.ex || '',
+        answer: answer, options: options,
+        answered: false, selectedIdx: -1, isCorrect: false,
+        isReview: isReview
+      });
+    } else {
+      // cn2en fill-in
+      var sentence = answer.ex;
+      var word = answer.en;
+
+      // Smart matching for parentheticals, alternatives, suffix variants
+      var cleanWord = word;
+      var suffixVariants = [];
+      cleanWord = cleanWord.replace(/(\w+)\((\w+)\)/g, function(_, base, suffix) {
+        suffixVariants.push(base + suffix);
+        return base;
+      });
+      cleanWord = cleanWord.replace(/\s*\([^)]*\)\s*/g, ' ').trim();
+      var candidates = cleanWord.indexOf('/') !== -1
+        ? cleanWord.split('/').map(function(s) { return s.trim(); })
+        : [cleanWord];
+      if (suffixVariants.length > 0) {
+        var alt = [];
+        suffixVariants.forEach(function(sv) {
+          candidates.forEach(function(c) {
+            var ws = c.split(/\s+/);
+            var altCand = ws.slice(0, -1).concat([sv]).join(' ');
+            if (candidates.indexOf(altCand) === -1 && alt.indexOf(altCand) === -1) alt.push(altCand);
+          });
+        });
+        candidates = alt.concat(candidates);
+      }
+
+      var blankIdx = -1, blankLen = 0, correctFill = '';
+      for (var ci = 0; ci < candidates.length && blankIdx === -1; ci++) {
+        var cand = candidates[ci].trim();
+        var candWords = cand.split(/\s+/);
+        if (candWords.length >= 2) {
+          var firstVariants = getConjugations(candWords[0]);
+          firstVariants.sort(function(a, b) { return b.length - a.length; });
+          for (var fvi = 0; fvi < firstVariants.length && blankIdx === -1; fvi++) {
+            var tryPhrase = firstVariants[fvi] + ' ' + candWords.slice(1).join(' ');
+            var re = new RegExp('\\b' + tryPhrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+            var m = re.exec(sentence);
+            if (m) { blankIdx = m.index; blankLen = m[0].length; correctFill = m[0]; }
+          }
+        }
+        if (blankIdx === -1) {
+          var result = findWordInSentence(candWords[0], sentence);
+          if (result) { blankIdx = result.idx; blankLen = result.len; correctFill = result.matched; }
+        }
+      }
+
+      var blankSentence = sentence;
+      if (blankIdx !== -1) {
+        blankSentence = sentence.substring(0, blankIdx) + '______' + sentence.substring(blankIdx + blankLen);
+      } else {
+        correctFill = candidates[0];
+      }
+
+      questions.push({
+        mode: mode, prompt: answer.cn, hint: '',
+        answer: answer, blankSentence: blankSentence,
+        correctFill: correctFill, userInput: '',
+        answered: false, isCorrect: false,
+        isReview: isReview
+      });
+    }
+  });
+
+  return questions;
+}
+
+function ensureQuizSession() {
+  if (!quizSession || !quizSession.questions || quizSession.questions.length === 0) {
+    quizSession = {
+      version: QUIZ_VERSION,
+      questions: generateDailyQuestions(),
+      currentIdx: 0,
+      score: 0,
+      completed: false
+    };
+    saveQuizSession();
+  }
+}
+
+function renderDaily() {
+  var root = $('#daily-container');
+  if (!VOCAB.length) {
+    root.innerHTML = '<div class="empty">' +
+      '<div class="e-title">' + t('empty_no_vocab_title') + '</div>' +
+      '<div class="e-hint">' + t('empty_no_vocab_hint') + '</div></div>';
+    return;
+  }
+  ensureQuizSession();
+  if (!quizSession.questions.length) {
+    root.innerHTML = '<div class="empty">' +
+      '<div class="e-title">' + t('empty_min_vocab_title') + '</div>' +
+      '<div class="e-hint">' + t('empty_min_vocab_hint') + '</div></div>';
+    return;
+  }
+
+  var html = '';
+
+  // Header with progress dots
+  html += '<div class="daily-header">';
+  html += '<div class="dh-title">' + escapeHtml(t('daily_title')) + '</div>';
+  html += '<div class="dh-progress">';
+  for (var pi = 0; pi < quizSession.questions.length; pi++) {
+    var q = quizSession.questions[pi];
+    var cls = 'daily-dot';
+    if (q.answered) cls += q.isCorrect ? ' correct' : ' wrong';
+    if (pi === quizSession.currentIdx) cls += ' current';
+    html += '<span class="' + cls + '" data-jump="' + pi + '"></span>';
+  }
+  html += '</div>';
+  html += '<div class="dh-right">';
+  html += '<span class="dh-score"><b>' + quizSession.score + '</b>/' + quizSession.questions.length + '</span>';
+  html += '<button class="btn small" id="refresh-daily" title="' + escapeHtml(t('daily_refresh_title')) + '">' + escapeHtml(t('daily_refresh_btn')) + '</button>';
+  html += '</div>';
+  html += '</div>';
+
+  if (quizSession.completed) {
+    var emoji = quizSession.score >= 4 ? '🎉' : quizSession.score >= 3 ? '👍' : '💪';
+    html += '<div class="quiz-card"><div class="done-card">';
+    html += '<div class="emoji">' + emoji + '</div>';
+    html += '<div class="title">' + escapeHtml(t('daily_complete_title')) + '</div>';
+    html += '<div class="score">' + escapeHtml(t('daily_complete_score_a')) + '<b>' + quizSession.score + '</b>' + escapeHtml(t('daily_complete_score_b')) + quizSession.questions.length + escapeHtml(t('daily_complete_score_c')) + '</div>';
+    html += '<div style="display:flex;gap:8px;justify-content:center;">';
+    html += '<button class="btn primary" id="reset-daily">' + escapeHtml(t('daily_reset_btn')) + '</button>';
+    if (getDueReviews().length > 0) {
+      html += '<button class="btn" id="goto-review">' + escapeHtml(t('daily_goto_review_btn_a')) + getDueReviews().length + escapeHtml(t('daily_goto_review_btn_b')) + '</button>';
+    }
+    html += '</div>';
+    html += '</div></div>';
+  } else {
+    var qIdx = quizSession.currentIdx;
+    var cur = quizSession.questions[qIdx];
+    html += renderQuestionCardHTML(cur, qIdx, quizSession.questions.length);
+  }
+
+  root.innerHTML = html;
+
+  // Wire dots
+  $$('#daily-container .daily-dot').forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(dot.dataset.jump);
+      if (quizSession.questions[idx].answered || idx === quizSession.currentIdx) {
+        quizSession.currentIdx = idx;
+        saveQuizSession();
+        renderDaily();
+      }
+    });
+  });
+
+  // Refresh button
+  var refreshBtn = $('#refresh-daily');
+  if (refreshBtn) refreshBtn.addEventListener('click', function() {
+    if (!confirm(t('daily_refresh_confirm'))) return;
+    clearTodaySession();
+    renderDaily();
+    toast(t('daily_refresh_done'));
+  });
+
+  if (quizSession.completed) {
+    var resetBtn = $('#reset-daily');
+    if (resetBtn) resetBtn.addEventListener('click', function() {
+      clearTodaySession();
+      renderDaily();
+    });
+    var gotoBtn = $('#goto-review');
+    if (gotoBtn) gotoBtn.addEventListener('click', function() { switchView('review'); });
+  } else {
+    wireQuestionCard(quizSession.questions[quizSession.currentIdx], 'daily');
+  }
+}
+
+function renderQuestionCardHTML(q, qIdx, total) {
+  var headerCls = q.mode === 'cn2en' ? 'qch-cn2en' : '';
+  var headerText = q.mode === 'en2cn' ? t('qch_en2cn') : t('qch_cn2en');
+  var html = '<div class="quiz-card">';
+  html += '<div class="quiz-card-header ' + headerCls + '">';
+  html += '<h4>' + escapeHtml(headerText) + '</h4>';
+  if (q.isReview) html += '<span class="qch-tag">' + escapeHtml(t('review_tag')) + '</span>';
+  html += '<span class="qch-num">' + (qIdx + 1) + ' / ' + total + '</span>';
+  html += '</div>';
+  html += '<div class="quiz-body">';
+
+  if (q.mode === 'en2cn') {
+    html += '<div class="quiz-prompt">' + escapeHtml(q.prompt) + '</div>';
+    if (q.answer.ipa) html += '<div class="quiz-ipa">' + escapeHtml(q.answer.ipa) + '</div>';
+    html += '<button class="speak-btn" data-speak="' + escapeHtml(q.prompt) + '">' + speakIcon() + ' ' + escapeHtml(t('listen_btn')) + '</button>';
+    if (q.hint) html += '<div class="quiz-hint">' + escapeHtml(q.hint) + '</div>';
+    var labels = ['1', '2', '3', '4'];
+    html += '<div class="options" data-mode="en2cn">';
+    q.options.forEach(function(o, i) {
+      var oCls = 'option';
+      if (q.answered) {
+        oCls += ' disabled';
+        if (o.correct) oCls += ' correct';
+        if (i === q.selectedIdx && !o.correct) oCls += ' wrong';
+      }
+      html += '<button class="' + oCls + '" data-idx="' + i + '" data-correct="' + (o.correct ? '1' : '0') + '">';
+      html += '<div class="o-label">' + labels[i] + '</div>';
+      html += '<div class="o-text">' + escapeHtml(o.text) + '</div>';
+      html += '</button>';
+    });
+    html += '</div>';
+  } else {
+    // cn2en fill-in
+    html += '<div class="quiz-prompt-cn">' + escapeHtml(q.prompt) + '</div>';
+    html += '<div class="fill-wrap">';
+    html += '<button class="speak-btn" data-speak="' + escapeHtml(q.answer.ex) + '" style="margin-bottom:10px;">' + speakIcon() + ' ' + escapeHtml(t('listen_sentence_btn')) + '</button>';
+    html += renderFillSentenceHTML(q, false);
+    html += '<div class="fill-actions">';
+    html += '<button class="btn primary" id="fill-submit"' + (q.answered ? ' disabled' : '') + '>' + escapeHtml(t('submit_btn')) + '</button>';
+    var typeCount = (q.correctFill || '').split('').filter(function(c) { return /[a-zA-Z0-9]/.test(c); }).length;
+    html += '<span class="fill-hint">' + (q.answered ? '' : typeCount + escapeHtml(t('letters_unit'))) + '</span>';
+    html += '</div>';
+    if (q.answered && !q.isCorrect) {
+      html += '<div class="reveal-row"><div class="reveal-label">' + escapeHtml(t('correct_answer_label')) + '</div>';
+      html += renderFillSentenceHTML(q, true);
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  if (q.answered) {
+    var fbCls = 'feedback visible ' + (q.isCorrect ? 'correct' : 'wrong');
+    html += '<div class="' + fbCls + '">';
+    html += '<div class="fb-row"><span class="fb-key">' + escapeHtml(q.isCorrect ? t('fb_correct') : t('fb_wrong')) + '</span></div>';
+    html += '<div class="fb-row"><span class="fb-key">' + escapeHtml(t('fb_english')) + '</span><span class="fb-val"><strong>' + escapeHtml(q.answer.en) + '</strong>';
+    if (q.answer.ipa) html += ' <span class="muted" style="font-style:italic;">' + escapeHtml(q.answer.ipa) + '</span>';
+    html += ' <button class="speak-btn" data-speak="' + escapeHtml(q.answer.en) + '" style="padding:2px 8px;font-size:11px;margin-left:6px;">' + speakIcon() + '</button></span></div>';
+    if (q.answer.engMeaning) html += '<div class="fb-row"><span class="fb-key">' + escapeHtml(t('fb_meaning')) + '</span><span class="fb-val">' + escapeHtml(q.answer.engMeaning) + '</span></div>';
+    html += '<div class="fb-row"><span class="fb-key">' + escapeHtml(t('fb_chinese')) + '</span><span class="fb-val">' + escapeHtml(q.answer.cn) + '</span></div>';
+    if (q.answer.ex) html += '<div class="fb-row"><span class="fb-key">' + escapeHtml(t('fb_example')) + '</span><span class="fb-val muted">' + escapeHtml(q.answer.ex) + '</span></div>';
+    html += '</div>';
+    html += '<div class="actions-row"><div class="spacer"></div>';
+    html += '<button class="btn primary" id="next-q">' + escapeHtml(t('next_btn')) + '</button>';
+    html += '</div>';
+  }
+
+  html += '</div></div>';
+  return html;
+}
+
+function renderFillSentenceHTML(q, reveal) {
+  var parts = q.blankSentence.split('______');
+  var letters = (q.correctFill || '').split('');
+  var html = '<div class="fill-sentence"' + (reveal ? ' style="border-color:var(--green);background:rgba(34,197,94,.05);"' : '') + '>';
+  html += '<span>' + escapeHtml(parts[0] || '') + '</span>';
+  html += '<span class="quiz-letter-boxes">';
+  var typeCount = 0;
+  for (var li = 0; li < letters.length; li++) {
+    var ch = letters[li];
+    if (/[a-zA-Z0-9]/.test(ch)) {
+      if (reveal) {
+        html += '<input class="quiz-letter-box reveal-correct" maxlength="1" value="' + escapeHtml(ch) + '" disabled />';
+      } else if (q.answered) {
+        var userChar = (q.userInput && typeCount < q.userInput.length) ? q.userInput[typeCount] : '';
+        var inputCls = 'quiz-letter-box ' + (userChar.toLowerCase() === ch.toLowerCase() ? 'correct' : 'wrong');
+        html += '<input class="' + inputCls + '" maxlength="1" value="' + escapeHtml(userChar) + '" disabled />';
+      } else {
+        html += '<input class="quiz-letter-box" maxlength="1" data-typ="1" data-pos="' + typeCount + '" autocomplete="off" spellcheck="false" />';
+      }
+      typeCount++;
+    } else {
+      var cls = reveal ? 'quiz-fixed-char reveal' : 'quiz-fixed-char';
+      html += '<span class="' + cls + '">' + escapeHtml(ch) + '</span>';
+    }
+  }
+  html += '</span>';
+  html += '<span>' + escapeHtml(parts[1] || '') + '</span>';
+  html += '</div>';
+  return html;
+}
+
+function speakIcon() {
+  return '<svg class="speak-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+}
+
+function wireQuestionCard(q, contextKind) {
+  // contextKind === 'daily' updates daily session; rerenders daily view on next.
+  // Listen buttons
+  $$('[data-speak]').forEach(function(b) {
+    b.addEventListener('click', function() { speak(b.dataset.speak, b); });
+  });
+
+  if (q.mode === 'en2cn') {
+    $$('.options[data-mode="en2cn"] .option').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (q.answered) return;
+        var idx = parseInt(btn.dataset.idx);
+        var correct = btn.dataset.correct === '1';
+        q.answered = true;
+        q.selectedIdx = idx;
+        q.isCorrect = correct;
+        todayStats.attempts = (todayStats.attempts || 0) + 1;
+        if (correct) {
+          todayStats.correct = (todayStats.correct || 0) + 1;
+          if (contextKind === 'daily') quizSession.score++;
+          srsAnswerCorrect(q.answer.en);
+          playDing();
+        } else {
+          srsAnswerWrong(q.answer.en);
+        }
+        var entry = findEntry(q.answer.en);
+        if (entry && entry.reps === 1 && entry.type === 2) todayStats.learned = (todayStats.learned || 0) + 1;
+        else todayStats.reviewed = (todayStats.reviewed || 0) + 1;
+        saveStats();
+        if (contextKind === 'daily') {
+          if (quizSession.questions.every(function(qq) { return qq.answered; })) quizSession.completed = true;
+          saveQuizSession();
+          renderDaily();
+        }
+      });
+    });
+  } else if (q.mode === 'cn2en' && !q.answered) {
+    var inputs = $$('input.quiz-letter-box[data-typ="1"]');
+    var letters = (q.correctFill || '').split('');
+    function collectUserLetters() { return inputs.map(function(i) { return i.value; }).join(''); }
+    function collectFullWord() {
+      var out = '';
+      var ti = 0;
+      for (var i = 0; i < letters.length; i++) {
+        var c = letters[i];
+        if (/[a-zA-Z0-9]/.test(c)) { out += inputs[ti] ? inputs[ti].value : ''; ti++; }
+        else out += c;
+      }
+      return out;
+    }
+    function doSubmit() {
+      var typed = collectUserLetters();
+      if (typed.length < inputs.length) {
+        for (var i = 0; i < inputs.length; i++) if (!inputs[i].value) { inputs[i].focus(); return; }
+      }
+      var fullWord = collectFullWord();
+      q.userInput = typed;
+      q.answered = true;
+      q.isCorrect = fullWord.toLowerCase() === (q.correctFill || '').toLowerCase();
+      todayStats.attempts = (todayStats.attempts || 0) + 1;
+      if (q.isCorrect) {
+        todayStats.correct = (todayStats.correct || 0) + 1;
+        if (contextKind === 'daily') quizSession.score++;
+        srsAnswerCorrect(q.answer.en);
+        playDing();
+      } else {
+        srsAnswerWrong(q.answer.en);
+      }
+      var entry = findEntry(q.answer.en);
+      if (entry && entry.reps === 1 && entry.type === 2) todayStats.learned = (todayStats.learned || 0) + 1;
+      else todayStats.reviewed = (todayStats.reviewed || 0) + 1;
+      saveStats();
+      if (contextKind === 'daily') {
+        if (quizSession.questions.every(function(qq) { return qq.answered; })) quizSession.completed = true;
+        saveQuizSession();
+        renderDaily();
+      }
+    }
+    inputs.forEach(function(inp, idx) {
+      inp.addEventListener('input', function() {
+        if (inp.value.length > 1) inp.value = inp.value.charAt(inp.value.length - 1);
+        if (inp.value) {
+          inp.classList.add('filled');
+          var next = idx + 1 < inputs.length ? inputs[idx + 1] : null;
+          if (next) next.focus();
+        } else {
+          inp.classList.remove('filled');
+        }
+      });
+      inp.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' && !inp.value) {
+          if (idx > 0) {
+            e.preventDefault();
+            inputs[idx - 1].value = '';
+            inputs[idx - 1].classList.remove('filled');
+            inputs[idx - 1].focus();
+          }
+        } else if (e.key === 'ArrowLeft') {
+          if (idx > 0) { e.preventDefault(); inputs[idx - 1].focus(); }
+        } else if (e.key === 'ArrowRight') {
+          if (idx + 1 < inputs.length) { e.preventDefault(); inputs[idx + 1].focus(); }
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          doSubmit();
+        }
+      });
+      inp.addEventListener('focus', function() { inp.select(); });
+    });
+    var subBtn = $('#fill-submit');
+    if (subBtn) subBtn.addEventListener('click', doSubmit);
+    if (inputs.length > 0) setTimeout(function() { inputs[0].focus(); }, 60);
+  }
+
+  // Next button
+  var nextBtn = $('#next-q');
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      if (contextKind !== 'daily') return;
+      var qIdx = quizSession.currentIdx;
+      var nextIdx = -1;
+      for (var i = qIdx + 1; i < quizSession.questions.length; i++) {
+        if (!quizSession.questions[i].answered) { nextIdx = i; break; }
+      }
+      if (nextIdx === -1) {
+        for (var j = 0; j < qIdx; j++) {
+          if (!quizSession.questions[j].answered) { nextIdx = j; break; }
+        }
+      }
+      if (nextIdx !== -1) {
+        quizSession.currentIdx = nextIdx;
+        saveQuizSession();
+      } else {
+        quizSession.completed = true;
+        saveQuizSession();
+      }
+      renderDaily();
+    });
+  }
+}
+
+/* ============================================================
+   SESSIONS VIEW (Fancy Vocab grouped by date → flashcard study)
+   ============================================================ */
+function renderSessions() {
+  var root = $('#sessions-list');
+  if (!SESSIONS.length) {
+    root.innerHTML = '<div class="empty">' +
+      '<div class="e-title">' + t('empty_sessions_title') + '</div>' +
+      '<div class="e-hint">' + t('empty_sessions_hint') + '</div></div>';
+    return;
+  }
+  root.innerHTML = SESSIONS.map(function(s) {
+    var dateLabel = s.date ? s.date : t('foundational_label');
+    return (
+      '<div class="list-item">' +
+        '<div class="li-main">' +
+          '<div class="li-title">' + escapeHtml(s.title) + '</div>' +
+          '<div class="li-meta">' + escapeHtml(dateLabel) + ' · ' + s.cardCount + escapeHtml(t('cards_unit')) + '</div>' +
+        '</div>' +
+        '<div class="li-actions">' +
+          '<span class="pill">' + s.cardCount + '</span>' +
+          '<button class="btn primary small" data-session-study="' + escapeHtml(s.id) + '">' + escapeHtml(t('study_btn')) + '</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }).join('');
+  $$('#sessions-list [data-session-study]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      startFlashStudy('session', btn.dataset.sessionStudy);
+    });
+  });
+}
+
+/* ============================================================
+   FLASHCARD STUDY (session, flip mode)
+   ============================================================ */
+var flashState = null;
+// flashState = {
+//   sourceKind: 'session', sourceId, sourceLabel,
+//   queue: [{front, back, ipa, example, srsKey}],
+//   idx, total, showingAnswer, finished
+// }
+
+function vocabSrsKey(sessionId, expression) {
+  var slug = (expression || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').substring(0, 40);
+  return 'vs::' + sessionId + '::' + slug;
+}
+
+function startFlashStudy(kind, id) {
+  var label = '', cards = [];
+  if (kind === 'session') {
+    var s = SESSIONS.find(function(x) { return x.id === id; });
+    if (!s || !s.cards.length) { toast(t('flash_session_no_cards'), 'error'); return; }
+    label = t('flash_session_prefix') + s.title;
+    var now2 = nowSec();
+    var due2 = [], fresh2 = [];
+    s.cards.forEach(function(c) {
+      var key = vocabSrsKey(id, c.front);
+      var entry = findEntry(key);
+      var card = { front: c.front, back: c.back, ipa: c.ipa || '', example: c.example || '', engMeaning: c.engMeaning || '', srsKey: key };
+      if (entry && entry.due <= now2) due2.push(card);
+      else if (!entry) fresh2.push(card);
+    });
+    cards = due2.concat(fresh2.slice(0, Math.max(0, 20 - due2.length)));
+  }
+
+  flashState = {
+    sourceKind: kind, sourceId: id, sourceLabel: label,
+    queue: cards, idx: 0, total: cards.length,
+    showingAnswer: false, finished: false
+  };
+  renderFlashStudy();
+}
+
+function renderFlashStudy() {
+  var wrap = $('#session-study-wrap');
+  if (!wrap) return;
+  // Hide list while studying
+  $('#sessions-list').innerHTML = '';
+
+  if (!flashState.queue.length) {
+    wrap.innerHTML = '<div class="quiz-card"><div class="done-card">' +
+      '<div class="emoji">🎉</div>' +
+      '<div class="title">' + escapeHtml(t('flash_no_due_title')) + '</div>' +
+      '<div class="score">' + escapeHtml(t('flash_no_due_hint')) + '</div>' +
+      '<button class="btn primary" id="flash-back">' + escapeHtml(t('flash_back_btn')) + '</button>' +
+      '</div></div>';
+    $('#flash-back').addEventListener('click', exitFlashStudy);
+    return;
+  }
+
+  if (flashState.idx >= flashState.queue.length || flashState.finished) {
+    wrap.innerHTML = '<div class="quiz-card"><div class="done-card">' +
+      '<div class="emoji">✅</div>' +
+      '<div class="title">' + escapeHtml(t('flash_round_complete')) + '</div>' +
+      '<div class="score">' + escapeHtml(t('flash_reviewed_a')) + '<b>' + flashState.total + '</b>' + escapeHtml(t('flash_reviewed_b')) + '</div>' +
+      '<div style="display:flex;gap:8px;justify-content:center;">' +
+      '<button class="btn primary" id="flash-again">' + escapeHtml(t('flash_again_btn')) + '</button>' +
+      '<button class="btn" id="flash-back">' + escapeHtml(t('flash_back_btn')) + '</button>' +
+      '</div></div></div>';
+    $('#flash-again').addEventListener('click', function() {
+      startFlashStudy(flashState.sourceKind, flashState.sourceId);
+    });
+    $('#flash-back').addEventListener('click', exitFlashStudy);
+    return;
+  }
+
+  var c = flashState.queue[flashState.idx];
+  var pct = Math.round((flashState.idx + 1) / flashState.total * 100);
+
+  var html = '<div class="daily-header">';
+  html += '<div class="dh-title">' + escapeHtml(flashState.sourceLabel) + '</div>';
+  html += '<div class="dh-right">';
+  html += '<span class="dh-score">' + (flashState.idx + 1) + ' / ' + flashState.total + '</span>';
+  html += '<button class="btn small" id="flash-exit">' + escapeHtml(t('flash_exit_btn')) + '</button>';
+  html += '</div></div>';
+
+  html += '<div class="flash-progress"><div style="width:' + pct + '%;"></div></div>';
+
+  html += '<div class="flash-card">';
+  html += '<div class="fc-front">' + escapeHtml(c.front) + '</div>';
+  html += '<div style="margin-top:8px;"><button class="speak-btn" data-speak="' + escapeHtml(c.front) + '">' + speakIcon() + ' ' + escapeHtml(t('listen_btn')) + '</button></div>';
+  if (flashState.showingAnswer) {
+    html += '<hr/>';
+    html += '<div class="fc-back">' + escapeHtml(c.back) + '</div>';
+    if (c.engMeaning) html += '<div class="fc-meaning">' + escapeHtml(c.engMeaning) + '</div>';
+    if (c.ipa) html += '<div class="fc-ipa">' + escapeHtml(c.ipa) + '</div>';
+    if (c.example) html += '<div class="fc-example">' + escapeHtml(c.example) + '</div>';
+  }
+  html += '</div>';
+
+  html += '<div class="flash-actions">';
+  if (!flashState.showingAnswer) {
+    html += '<button class="flash-flip" id="flash-flip">' + escapeHtml(t('flash_flip_btn')) + ' <span class="kbd-hint">Space</span></button>';
+  } else {
+    html += '<button class="flash-rate-no" id="flash-no">' + escapeHtml(t('flash_dont_know_btn')) + ' <span class="kbd-hint">1</span></button>';
+    html += '<button class="flash-rate-yes" id="flash-yes">' + escapeHtml(t('flash_know_btn')) + ' <span class="kbd-hint">2</span></button>';
+  }
+  html += '</div>';
+
+  wrap.innerHTML = html;
+
+  $$('[data-speak]').forEach(function(b) {
+    b.addEventListener('click', function() { speak(b.dataset.speak, b); });
+  });
+  $('#flash-exit').addEventListener('click', exitFlashStudy);
+  if (!flashState.showingAnswer) {
+    $('#flash-flip').addEventListener('click', flashFlip);
+  } else {
+    $('#flash-no').addEventListener('click', function() { flashRate(false); });
+    $('#flash-yes').addEventListener('click', function() { flashRate(true); });
+  }
+}
+
+function flashFlip() {
+  flashState.showingAnswer = true;
+  renderFlashStudy();
+}
+
+function flashRate(correct) {
+  var c = flashState.queue[flashState.idx];
+  var entry = ensureEntry(c.srsKey);
+  sm2Review(entry, correct);
+  todayStats.attempts = (todayStats.attempts || 0) + 1;
+  if (correct) {
+    todayStats.correct = (todayStats.correct || 0) + 1;
+    if (entry.reps === 1 && entry.type === 2) todayStats.learned = (todayStats.learned || 0) + 1;
+    else todayStats.reviewed = (todayStats.reviewed || 0) + 1;
+    playDing();
+  } else {
+    todayStats.reviewed = (todayStats.reviewed || 0) + 1;
+  }
+  saveStats();
+  flashState.idx++;
+  flashState.showingAnswer = false;
+  renderFlashStudy();
+}
+
+function exitFlashStudy() {
+  flashState = null;
+  renderSessions();
+}
+
+/* ============================================================
+   FREE STUDY (multi-source picker, 4-choice mode)
+   ============================================================ */
+var studyState = null;
+
+function renderStudySource() {
+  $('#study-card-wrap').innerHTML = '';
+  var html = '<div class="source-picker">' +
+    '<div class="sp-title">' + escapeHtml(t('free_picker_title')) + '</div>' +
+    '<div class="sp-row">' +
+      '<select id="src-select"></select>' +
+      '<button class="btn primary" id="src-go">' + escapeHtml(t('free_picker_start')) + '</button>' +
+    '</div>' +
+    '</div>';
+  $('#study-source-wrap').innerHTML = html;
+  var sel = $('#src-select');
+  var opts = [];
+  if (VOCAB.length) opts.push('<option value="all">' + escapeHtml(t('free_opt_all_a')) + VOCAB.length + escapeHtml(t('free_opt_all_b')) + '</option>');
+  if (srsBook.length) opts.push('<option value="due">' + escapeHtml(t('free_opt_due')) + '</option>');
+  SESSIONS.forEach(function(s) {
+    opts.push('<option value="session:' + escapeHtml(s.id) + '">' + escapeHtml(t('free_opt_session_prefix')) + escapeHtml(s.title) + ' (' + s.cardCount + ')</option>');
+  });
+  if (!opts.length) opts.push('<option value="">' + escapeHtml(t('free_no_sources')) + '</option>');
+  sel.innerHTML = opts.join('');
+  $('#src-go').addEventListener('click', function() {
+    var v = sel.value;
+    if (!v) return;
+    if (v === 'all') startFreeStudy({ kind: 'all' });
+    else if (v === 'due') startFreeStudy({ kind: 'due' });
+    else if (v.indexOf('session:') === 0) startFreeStudy({ kind: 'session', id: v.slice(8) });
+  });
+}
+
+function vocabFromCard(c) {
+  return {
+    en: c.front || c.en, cn: c.back || c.cn,
+    ex: c.example || c.ex || '',
+    ipa: c.ipa || '', engMeaning: c.engMeaning || ''
+  };
+}
+
+function startFreeStudy(spec) {
+  var cards = [], label = '';
+  if (spec.kind === 'session') {
+    var s = SESSIONS.find(function(x) { return x.id === spec.id; });
+    if (!s) return;
+    cards = s.cards.map(vocabFromCard);
+    label = t('flash_session_prefix') + s.title;
+  } else if (spec.kind === 'all') {
+    cards = VOCAB.slice();
+    label = settings.lang === 'zh' ? '全部词汇' : 'All vocabulary';
+  } else if (spec.kind === 'due') {
+    var due = srsBook.filter(function(e) { return e.type !== 0 && e.due <= nowSec(); });
+    cards = due.map(function(e) {
+      var v = VOCAB.find(function(x) { return x.en === e.en; });
+      return v || null;
+    }).filter(Boolean);
+    label = settings.lang === 'zh' ? '待复习' : 'Due reviews';
+  }
+  if (!cards.length) {
+    $('#study-card-wrap').innerHTML = '<div class="empty">' +
+      '<div class="e-title">' + t('free_nothing_title') + '</div>' +
+      '<div class="e-hint">' + t('free_nothing_hint') + '</div></div>';
+    return;
+  }
+  studyState = {
+    sourceLabel: label, cards: cards,
+    queue: shuffle(cards.map(function(_, i) { return i; })),
+    pos: 0, answered: false, correctCount: 0, total: cards.length
+  };
+  renderStudyCard();
+}
+
+function pickDistractors(answer, pool) {
+  var others = pool.filter(function(v) { return v.en !== answer.en && v.cn && v.cn !== answer.cn; });
+  if (others.length < 3) {
+    var extra = VOCAB.filter(function(v) {
+      return v.en !== answer.en && v.cn && v.cn !== answer.cn &&
+             !others.some(function(o) { return o.en === v.en; });
+    });
+    others = others.concat(extra);
+  }
+  return shuffle(others).slice(0, 3);
+}
+
+function renderStudyCard() {
+  if (!studyState) return;
+  if (studyState.pos >= studyState.queue.length) {
+    var acc = studyState.total > 0 ? Math.round(studyState.correctCount / studyState.total * 100) : 0;
+    $('#study-card-wrap').innerHTML =
+      '<div class="quiz-card"><div class="done-card">' +
+        '<div class="emoji">✅</div>' +
+        '<div class="title">' + escapeHtml(t('free_complete_title')) + '</div>' +
+        '<div class="score"><b>' + studyState.correctCount + '</b> / ' + studyState.total + ' (' + acc + '%)</div>' +
+        '<div style="display:flex;gap:8px;justify-content:center;">' +
+        '<button class="btn primary" id="study-restart">' + escapeHtml(t('free_restart_btn')) + '</button>' +
+        '<button class="btn" id="study-pick">' + escapeHtml(t('free_pick_btn')) + '</button>' +
+        '</div></div></div>';
+    $('#study-restart').addEventListener('click', function() {
+      studyState.queue = shuffle(studyState.cards.map(function(_, i) { return i; }));
+      studyState.pos = 0; studyState.correctCount = 0;
+      renderStudyCard();
+    });
+    $('#study-pick').addEventListener('click', function() { studyState = null; renderStudySource(); });
+    return;
+  }
+
+  var card = studyState.cards[studyState.queue[studyState.pos]];
+  var distractors = pickDistractors(card, studyState.cards);
+  var allOpts = shuffle([{ text: card.cn, correct: true }]
+    .concat(distractors.map(function(d) { return { text: d.cn, correct: false }; })));
+  var labels = ['1', '2', '3', '4'];
+  var optsHtml = allOpts.map(function(o, i) {
+    return '<button class="option" data-correct="' + (o.correct ? '1' : '0') + '">' +
+      '<div class="o-label">' + labels[i] + '</div>' +
+      '<div class="o-text">' + escapeHtml(o.text) + '</div></button>';
+  }).join('');
+
+  var html = '<div class="quiz-card">' +
+    '<div class="quiz-card-header">' +
+      '<h4>' + escapeHtml(studyState.sourceLabel) + '</h4>' +
+      '<div class="qch-num">' + (studyState.pos + 1) + ' / ' + studyState.total + '</div>' +
+    '</div>' +
+    '<div class="quiz-body">' +
+      '<div class="quiz-prompt">' + escapeHtml(card.en) + '</div>' +
+      (card.ipa ? '<div class="quiz-ipa">' + escapeHtml(card.ipa) + '</div>' : '') +
+      '<button class="speak-btn" data-speak="' + escapeHtml(card.en) + '">' + speakIcon() + ' ' + escapeHtml(t('listen_btn')) + '</button>' +
+      (card.ex ? '<div class="quiz-hint">' + escapeHtml(card.ex) + '</div>' : '') +
+      '<div class="options" id="options-wrap">' + optsHtml + '</div>' +
+      '<div class="feedback" id="feedback"></div>' +
+      '<div class="actions-row" id="actions-row" style="display:none">' +
+        '<div class="spacer"></div>' +
+        '<button class="btn primary" id="next-card">' + escapeHtml(t('next_btn')) + '</button>' +
+      '</div>' +
+    '</div></div>';
+  $('#study-card-wrap').innerHTML = html;
+  studyState.answered = false;
+
+  $$('[data-speak]').forEach(function(b) {
+    b.addEventListener('click', function() { speak(b.dataset.speak, b); });
+  });
+
+  $$('#options-wrap .option').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (studyState.answered) return;
+      var correct = btn.dataset.correct === '1';
+      studyState.answered = true;
+      todayStats.attempts = (todayStats.attempts || 0) + 1;
+      if (correct) {
+        todayStats.correct = (todayStats.correct || 0) + 1;
+        studyState.correctCount += 1;
+        playDing();
+      }
+      $$('#options-wrap .option').forEach(function(o) {
+        o.classList.add('disabled');
+        if (o.dataset.correct === '1') o.classList.add('correct');
+      });
+      if (!correct) btn.classList.add('wrong');
+      var entry = ensureEntry(card.en);
+      sm2Review(entry, correct);
+      if (entry.reps === 1 && entry.type === 2) todayStats.learned = (todayStats.learned || 0) + 1;
+      else todayStats.reviewed = (todayStats.reviewed || 0) + 1;
+      saveStats();
+      var fbHtml = '';
+      if (card.engMeaning) fbHtml += '<div class="fb-row"><span class="fb-key">' + escapeHtml(t('fb_meaning')) + '</span><span class="fb-val">' + escapeHtml(card.engMeaning) + '</span></div>';
+      fbHtml += '<div class="fb-row"><span class="fb-key">' + escapeHtml(t('fb_chinese')) + '</span><span class="fb-val">' + escapeHtml(card.cn) + '</span></div>';
+      if (card.ex) fbHtml += '<div class="fb-row"><span class="fb-key">' + escapeHtml(t('fb_example')) + '</span><span class="fb-val muted">' + escapeHtml(card.ex) + '</span></div>';
+      var fb = $('#feedback');
+      fb.innerHTML = fbHtml;
+      fb.classList.add('visible');
+      fb.classList.add(correct ? 'correct' : 'wrong');
+      $('#actions-row').style.display = 'flex';
+      if (card.ex) setTimeout(function() { try { speak(card.ex); } catch (e) {} }, 250);
+    });
+  });
+
+  $('#next-card').addEventListener('click', function() {
+    studyState.pos += 1;
+    renderStudyCard();
+  });
+}
+
+/* ============================================================
+   MY REVIEWS LIST (SRS book, simplified)
+   ============================================================ */
+function renderReviewList() {
+  var wrap = $('#review-list-wrap');
+  if (!srsBook.length) {
+    wrap.innerHTML = '<div class="empty">' +
+      '<div class="e-title">' + t('review_empty_title') + '</div>' +
+      '<div class="e-hint">' + t('review_empty_hint') + '</div></div>';
+    return;
+  }
+  var now = nowSec();
+  var sorted = srsBook.slice().sort(function(a, b) {
+    var aDue = a.due <= now ? 0 : 1;
+    var bDue = b.due <= now ? 0 : 1;
+    if (aDue !== bDue) return aDue - bDue;
+    return a.due - b.due;
+  });
+  var dueCount = sorted.filter(function(e) { return e.due <= now; }).length;
+  var html = '<div class="daily-header">';
+  html += '<div class="dh-title">' + escapeHtml(t('review_title')) + '</div>';
+  html += '<div class="dh-right"><span class="dh-score">' + escapeHtml(t('review_total_label')) + ' <b>' + sorted.length + '</b> · ' + escapeHtml(t('review_due_label')) + ' <b>' + dueCount + '</b></span></div>';
+  html += '</div>';
+  sorted.forEach(function(e, listIdx) {
+    var v = findVocabByEn(e.en);
+    var label = v ? v.en : e.en;
+    var cn = v ? v.cn : '';
+    var ipa = v ? v.ipa : '';
+    var due = e.due <= now ? t('review_due_now') : unixToDateStr(e.due);
+    var rowCls = 'srs-row' + (e.due <= now ? ' due' : '');
+    html += '<div class="' + rowCls + '">';
+    html += '<div class="sr-main">';
+    html += '<div><span class="sr-en">' + escapeHtml(label) + '</span>';
+    if (ipa) html += '<span class="sr-ipa">' + escapeHtml(ipa) + '</span>';
+    html += '</div>';
+    if (cn) html += '<div class="sr-cn">' + escapeHtml(cn) + '</div>';
+    html += '<div class="sr-due">' + escapeHtml(t('review_next_prefix')) + escapeHtml(due) + '</div>';
+    html += '</div>';
+    html += '<button class="btn success small" data-master="' + listIdx + '">' + escapeHtml(t('review_master_btn')) + '</button>';
+    html += '</div>';
+  });
+  wrap.innerHTML = html;
+  $$('#review-list-wrap [data-master]').forEach(function(b) {
+    b.addEventListener('click', function() {
+      var i = parseInt(b.dataset.master);
+      var entry = sorted[i];
+      srsBook = srsBook.filter(function(x) { return x.en !== entry.en; });
+      saveSrsBook();
+      var v = findVocabByEn(entry.en);
+      toast(t('review_mastered_toast_prefix') + (v ? v.en : entry.en), 'success');
+      renderReviewList();
+      renderStats();
+    });
+  });
+}
+
+/* ============================================================
+   GLOBAL KEYBOARD SHORTCUTS
+   ============================================================ */
+document.addEventListener('keydown', function(e) {
+  // Skip when typing in inputs/textareas (except letter-box specific keys handled inside)
+  var tag = e.target.tagName;
+  var inLetterBox = tag === 'INPUT' && e.target.classList.contains('quiz-letter-box');
+  var inFormField = (tag === 'INPUT' && !inLetterBox) || tag === 'TEXTAREA';
+  if (inFormField) return;
+
+  // Esc: close modals first
+  if (e.key === 'Escape') {
+    if ($('#settings-modal').classList.contains('visible')) { closeSettings(); return; }
+    if ($('#onboard-modal').classList.contains('visible')) { closeOnboarding(); return; }
+    return;
+  }
+  // ? open settings
+  if (e.key === '?' || (e.key === '/' && e.shiftKey)) {
+    e.preventDefault();
+    openSettings();
+    return;
+  }
+
+  // Daily mode
+  if (currentView === 'daily' && quizSession && !quizSession.completed) {
+    var q = quizSession.questions[quizSession.currentIdx];
+    if (!q) return;
+    if (q.answered) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        var nextBtn = $('#next-q');
+        if (nextBtn) nextBtn.click();
+      }
+      return;
+    }
+    if (q.mode === 'en2cn' && /^[1-4]$/.test(e.key)) {
+      e.preventDefault();
+      var optBtns = $$('.options[data-mode="en2cn"] .option');
+      var idx = parseInt(e.key) - 1;
+      if (optBtns[idx]) optBtns[idx].click();
+    }
+    return;
+  }
+
+  // Flash mode (sessions only)
+  if (currentView === 'sessions' && flashState && !flashState.finished) {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      if (!flashState.showingAnswer) flashFlip();
+    } else if (e.key === '1' || e.key === 'j') {
+      if (flashState.showingAnswer) flashRate(false);
+    } else if (e.key === '2' || e.key === 'k') {
+      if (flashState.showingAnswer) flashRate(true);
+    }
+    return;
+  }
+
+  // Free study mode
+  if (currentView === 'study' && studyState) {
+    if (!studyState.answered && /^[1-4]$/.test(e.key)) {
+      e.preventDefault();
+      var sBtns = $$('#options-wrap .option');
+      var sIdx = parseInt(e.key) - 1;
+      if (sBtns[sIdx]) sBtns[sIdx].click();
+    } else if (studyState.answered && (e.key === ' ' || e.key === 'Enter')) {
+      e.preventDefault();
+      var nb = $('#next-card');
+      if (nb) nb.click();
+    }
+  }
+});
+
+/* ============================================================
+   SETTINGS modal wiring
+   ============================================================ */
+function openSettings() {
+  $$('#settings-modal input[name="lang"]').forEach(function(r) { r.checked = (r.value === settings.lang); });
+  $$('#settings-modal input[name="tts-engine"]').forEach(function(r) { r.checked = (r.value === settings.ttsEngine); });
+  $$('#settings-modal input[name="tts-accent"]').forEach(function(r) { r.checked = (r.value === settings.ttsAccent); });
+  $$('#settings-modal input[name="difficulty"]').forEach(function(r) { r.checked = (r.value === (settings.difficulty || 'normal')); });
+  $('#ding-toggle').checked = !!settings.soundOn;
+  $('#settings-modal').classList.add('visible');
+}
+function closeSettings() { $('#settings-modal').classList.remove('visible'); }
+$('#open-settings').addEventListener('click', openSettings);
+$('#close-settings').addEventListener('click', closeSettings);
+$('#settings-modal').addEventListener('click', function(e) {
+  if (e.target === e.currentTarget) closeSettings();
+});
+$$('#settings-modal input[name="lang"]').forEach(function(r) {
+  r.addEventListener('change', function() { setLang(r.value); });
+});
+$$('#settings-modal input[name="tts-engine"]').forEach(function(r) {
+  r.addEventListener('change', function() { settings.ttsEngine = r.value; saveSettings(); });
+});
+$$('#settings-modal input[name="tts-accent"]').forEach(function(r) {
+  r.addEventListener('change', function() { settings.ttsAccent = r.value; saveSettings(); });
+});
+$$('#settings-modal input[name="difficulty"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    settings.difficulty = r.value;
+    saveSettings();
+    // 立刻刷新 daily session(因为 mode 选择规则变了)
+    if (currentView === 'daily') {
+      try { localStorage.removeItem('quiz_session_' + todayKey()); } catch (e) {}
+      renderDaily();
+    }
+  });
+});
+$('#ding-toggle').addEventListener('change', function() {
+  settings.soundOn = $('#ding-toggle').checked;
+  saveSettings();
+});
+$('#test-tts').addEventListener('click', function() {
+  speak(t('test_tts_text'), $('#test-tts'));
+});
+
+/* ============================================================
+   ONBOARDING modal (first visit)
+   ============================================================ */
+function closeOnboarding() {
+  $('#onboard-modal').classList.remove('visible');
+  localStorage.setItem('tts_setup_done', '1');
+}
+function showOnboardingIfNeeded() {
+  if (localStorage.getItem('tts_setup_done')) return;
+  $('#onboard-modal').classList.add('visible');
+}
+$('#onboard-start').addEventListener('click', closeOnboarding);
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+applyI18N();
+loadAll().then(function() {
+  renderStats();
+  switchView('daily');
+  showOnboardingIfNeeded();
+}).catch(function(err) {
+  $('#daily-container').innerHTML =
+    '<div class="empty"><div class="e-title">' + t('toast_load_failed_title') + '</div>' +
+    '<div class="e-hint">' + escapeHtml(String(err && err.message || err)) + '</div></div>';
+});
+</script>
+</body>
+</html>

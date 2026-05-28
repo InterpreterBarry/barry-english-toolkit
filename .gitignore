@@ -1,0 +1,19 @@
+# === 维护者专用脚本:含私库路径 / 学员真名,绝不进公开仓库 ===
+scripts/sync-methodology.sh
+scripts/build-internal-release.sh
+scripts/build-wiki-index.py
+
+# === 系统 / 编辑器杂物 ===
+.DS_Store
+*.swp
+
+# === 备份 / 日志 ===
+*.bak
+*.bak.*
+*.log
+
+# === Node ===
+node_modules/
+
+# === 学员运行时产物(若误生成在仓库内) ===
+.quiz-port
