@@ -13,6 +13,7 @@ description: Barry 英文沟通方法论资源包。给 barry-coach、barry-logi
 
 1. 定位本 Skill 的安装目录 `barry-methodology`。
    常见位置：
+   - `~/.agents/skills/barry-methodology/methodology`
    - `~/.claude/skills/barry-methodology/methodology`
    - `~/.codex/skills/barry-methodology/methodology`
    - `~/.cursor/skills/barry-methodology/methodology`

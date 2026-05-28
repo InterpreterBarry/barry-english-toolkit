@@ -228,6 +228,7 @@ Step 5 · 收尾 + 学员引导       (1 min)
 **先定位 `ACTIVE_SKILLS_DIR`**，不要硬编码 Claude 路径。按顺序找第一个存在或最合理的目录：
 
 1. 当前正在运行的 Agent 的用户级 skills 目录：
+   - npx skills 通用目录：`~/.agents/skills`（推荐优先）
    - Claude Code：`~/.claude/skills`
    - Codex：`~/.codex/skills`
    - Cursor：`~/.cursor/skills`
@@ -327,7 +328,9 @@ node --version
 
 1. 当前 `barry-solution` Skill 目录下的 `quiz-web/`
 2. 常见安装路径：
+   - `~/.agents/skills/barry-solution/quiz-web`
    - `<当前 AI Agent skills 目录>/barry-solution/quiz-web`
+   - `~/.claude/skills/barry-solution/quiz-web`
    - `~/.codex/skills/barry-solution/quiz-web`
    - `~/.cursor/skills/barry-solution/quiz-web`
    - 当前项目 `.agents/skills/barry-solution/quiz-web`

@@ -48,7 +48,7 @@ The fallback installer currently targets Claude Code's `~/.claude/skills/` path 
 
 ## Verification checklist
 
-Check whichever Agent skills directory was used, for example `~/.claude/skills`, `~/.codex/skills`, `~/.cursor/skills`, or project `.agents/skills`.
+Check whichever Agent skills directory was used. With the preferred `npx skills` installer, the primary copy is usually in `~/.agents/skills` and agent-specific directories may point to it. Other valid locations include `~/.claude/skills`, `~/.codex/skills`, `~/.cursor/skills`, or project `.agents/skills`.
 
 Required files:
 
