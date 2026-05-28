@@ -133,7 +133,7 @@ Quiz 网页 → 读 fancy-vocab.md,SM-2 间隔重复复习
 
 - 🐛 Bug / 建议 → [GitHub Issues](https://github.com/InterpreterBarry/barry-english-toolkit/issues)
 - 📐 学员档案 schema → [docs/学员档案-schema.md](docs/学员档案-schema.md)
-- 方法论由 Barry 原创。请不要直接 PR 改 wiki 正文,先开 Issue 讨论。
+- 📜 **License**:[CC BY-NC-ND 4.0](LICENSE) —— 方法论与全部内容版权归 Barry 所有。**可免费安装使用、原样转发(须署名 Barry),但禁止商业用途、禁止改编后再分发。** 请不要直接 PR 改 wiki 正文,先开 Issue 讨论。
 
 ---
 
@@ -183,6 +183,8 @@ All your learning artifacts live in `~/.barry-english/` — decoupled from the S
 ### Feedback
 
 Bugs & ideas → [GitHub Issues](https://github.com/InterpreterBarry/barry-english-toolkit/issues). Methodology authored by Barry; please open an issue before PRing wiki content.
+
+**License**: [CC BY-NC-ND 4.0](LICENSE). Copyright © 2026 Barry. You may use, install, and share this toolkit **with attribution**, but **commercial use and derivative/modified redistribution are not permitted**.
 
 ---
 
