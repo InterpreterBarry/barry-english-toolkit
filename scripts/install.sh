@@ -5,7 +5,7 @@
 #   ./scripts/install.sh
 #
 # 做什么:
-#  1. 安装 5 个 Skill 到 ~/.claude/skills/
+#  1. 安装 10 个 Skill 到 ~/.claude/skills/(含 barry-methodology 资源包)
 #  2. 安装 methodology wiki 到 ~/.barry-english/methodology/(coach 的 RAG 数据源)
 #  3. 创建 ~/.barry-english/(学员产物根目录)
 #
@@ -38,7 +38,7 @@ SKILLS_DIR="$HOME/.claude/skills"
 mkdir -p "$SKILLS_DIR"
 
 echo "  📥 Installing skills to $SKILLS_DIR ..."
-for skill in barry-onboarding barry-profile barry-assessment barry-solution barry-coach barry-logic-training barry-speech-training barry-translation-training barry-logic-to-speech; do
+for skill in barry-onboarding barry-profile barry-assessment barry-solution barry-coach barry-methodology barry-logic-training barry-speech-training barry-translation-training barry-logic-to-speech; do
   if [ -d "$TOOLKIT_ROOT/skills/$skill" ]; then
     # 删除旧版本(避免残留),然后 cp -R
     rm -rf "$SKILLS_DIR/$skill"
@@ -65,7 +65,7 @@ echo "    ✓ $PAGES wiki pages installed"
 echo ""
 echo "  🔍 Verifying installation..."
 ERRORS=0
-for skill in barry-onboarding barry-profile barry-assessment barry-solution barry-coach barry-logic-training barry-speech-training barry-translation-training barry-logic-to-speech; do
+for skill in barry-onboarding barry-profile barry-assessment barry-solution barry-coach barry-methodology barry-logic-training barry-speech-training barry-translation-training barry-logic-to-speech; do
   if [ ! -f "$SKILLS_DIR/$skill/SKILL.md" ]; then
     echo "    ❌ missing: $SKILLS_DIR/$skill/SKILL.md"
     ERRORS=$((ERRORS + 1))
@@ -87,8 +87,8 @@ echo ""
 echo "  ✅ Installation complete!"
 echo ""
 echo "  Next step:"
-echo "    1. Open Claude Code (or start a new session if already open)"
-echo "    2. Type: /barry-onboarding"
+echo "    1. Open Claude Code (or restart your current AI Agent if it reads ~/.claude/skills)"
+echo "    2. Type: 开始 (or /barry-onboarding)"
 echo "    3. Follow the guided 3-step setup (~30-55 min total)"
 echo ""
 echo "  Need Node.js for the Quiz Web? Install from https://nodejs.org/"

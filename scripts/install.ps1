@@ -31,7 +31,7 @@ $SkillsDir = "$env:USERPROFILE\.claude\skills"
 New-Item -ItemType Directory -Force -Path $SkillsDir | Out-Null
 
 Write-Host "  📥 Installing skills to $SkillsDir ..."
-$Skills = @('barry-onboarding', 'barry-profile', 'barry-assessment', 'barry-solution', 'barry-coach', 'barry-logic-training', 'barry-speech-training', 'barry-translation-training', 'barry-logic-to-speech')
+$Skills = @('barry-onboarding', 'barry-profile', 'barry-assessment', 'barry-solution', 'barry-coach', 'barry-methodology', 'barry-logic-training', 'barry-speech-training', 'barry-translation-training', 'barry-logic-to-speech')
 foreach ($skill in $Skills) {
     $src = "$ToolkitRoot\skills\$skill"
     $dst = "$SkillsDir\$skill"
@@ -82,8 +82,8 @@ Write-Host ""
 Write-Host "  ✅ Installation complete!" -ForegroundColor Green
 Write-Host ""
 Write-Host "  Next step:"
-Write-Host "    1. Open Claude Code (or start a new session if already open)"
-Write-Host "    2. Type: /barry-onboarding"
+Write-Host "    1. Open Claude Code (or restart your current AI Agent if it reads ~/.claude\skills)"
+Write-Host "    2. Type: 开始 (or /barry-onboarding)"
 Write-Host "    3. Follow the guided 3-step setup (~30-55 min total)"
 Write-Host ""
 Write-Host "  Need Node.js for the Quiz Web? Install from https://nodejs.org/"

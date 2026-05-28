@@ -1,55 +1,65 @@
-# Installation Instructions for Claude Code (AI agents reading this)
+# Installation Instructions for AI Agents
 
-> This file is for Claude Code / Claude.ai / any AI agent that the user asks to install this toolkit.
-> **Read this BEFORE doing anything else.**
+> This file is for Claude Code / Codex / Cursor / any AI agent that the user asks to install this toolkit.
+> Read this before doing anything else.
 
-## Critical: Do NOT cp files yourself
+## Preferred installation
 
-When the user says "help me install this toolkit" / "帮我安装这个 Skill 包" or similar, do NOT:
-
-- ❌ Manually `cp` SKILL.md files to `~/.claude/skills/`
-- ❌ Only copy the top-level `.md` files
-- ❌ Skip subdirectories like `quiz-web/`
-
-If you do that, **you will miss `skills/barry-solution/quiz-web/`** (a critical 100KB+ subdirectory containing the Quiz Web app), and the Quiz feature will be broken for the user.
-
-## Correct installation
-
-**Run the official installer script. That's it.**
-
-- **Mac / Linux / WSL:**
-  ```bash
-  bash <toolkit-root>/scripts/install.sh
-  ```
-- **Windows (PowerShell):**
-  ```powershell
-  powershell -ExecutionPolicy Bypass -File <toolkit-root>\scripts\install.ps1
-  ```
-
-The installer handles everything correctly: it uses `cp -R` to copy all 9 skills (including subdirectories like `quiz-web/`), installs methodology wiki to `~/.barry-english/methodology/`, and verifies the install.
-
-## If the user gave you a zip file
-
-1. Unzip it to a temporary or final location (e.g. `~/Desktop/Barry-Workplace-English-Toolkit/`)
-2. Run `bash <unzipped-root>/scripts/install.sh`
-3. Show the installer's output to the user
-4. Tell the user to restart Claude Code and type `开始` (or `/barry-onboarding`)
-
-## Verification checklist (run after install)
+Use the standard Skills installer:
 
 ```bash
-# Should list 9 barry-* directories
-ls -d ~/.claude/skills/barry-* | wc -l       # Expect: 9
-
-# CRITICAL: quiz-web subdirectory must exist
-ls ~/.claude/skills/barry-solution/quiz-web/  # Must show index.html + server.js
-
-# Methodology wiki + index file
-ls ~/.barry-english/methodology/wiki/_index.json  # Must exist
+npx -y skills add InterpreterBarry/barry-english-toolkit -g --all
 ```
 
-If `quiz-web/` is missing after install, the user's Quiz feature will not work. Re-run `install.sh` — do not try to fix it by manually copying files.
+This installs every Barry skill, including required subdirectories:
 
-## Why this file exists
+- `barry-solution/quiz-web/` for the Quiz web app
+- `barry-methodology/methodology/` for the methodology wiki used by `barry-coach`
 
-Past incidents: users said "help me install" and Claude Code skipped subdirectories, leading to broken Quiz Web. This file is a defensive instruction to prevent that from happening again. The install script is the single source of truth — trust it, run it, don't reinvent.
+After installing, tell the user to fully quit and reopen their AI agent, then type `开始` or `/barry-onboarding`.
+
+## Do not manually copy only SKILL.md
+
+Do not:
+
+- Copy only top-level `SKILL.md` files
+- Skip subdirectories like `quiz-web/`
+- Skip the `barry-methodology` resource skill
+
+Doing so will break Quiz or methodology Q&A.
+
+## Fallback installation
+
+If `npx` / npm is unavailable, use the legacy installer:
+
+Mac / Linux / WSL:
+
+```bash
+bash <toolkit-root>/scripts/install.sh
+```
+
+Windows PowerShell:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File <toolkit-root>\scripts\install.ps1
+```
+
+The fallback installer currently targets Claude Code's `~/.claude/skills/` path and also copies methodology to `~/.barry-english/methodology/`.
+
+## Verification checklist
+
+Check whichever Agent skills directory was used, for example `~/.claude/skills`, `~/.codex/skills`, `~/.cursor/skills`, or project `.agents/skills`.
+
+Required files:
+
+```text
+barry-onboarding/SKILL.md
+barry-coach/SKILL.md
+barry-methodology/SKILL.md
+barry-methodology/methodology/wiki/_index.json
+barry-solution/SKILL.md
+barry-solution/quiz-web/index.html
+barry-solution/quiz-web/server.js
+```
+
+If any of those are missing, rerun the preferred `npx skills add` command rather than hand-copying files.

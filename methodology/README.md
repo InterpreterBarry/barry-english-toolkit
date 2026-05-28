@@ -20,7 +20,7 @@ methodology/
 - Browse `index.md` for the full structure
 - Each wiki page is a self-contained atomic concept (one page = one concept)
 - Wiki is consumed by the `barry-coach` Skill via RAG (read-on-demand)
-- After learner installation (`barry-solution` Step 4), this directory is copied to `~/.barry-english/methodology/` for Coach to read
+- When installed through `npx skills`, this directory is packaged inside the `barry-methodology` resource Skill for Coach and task-training Skills to read
 
 ## License & contributing
 

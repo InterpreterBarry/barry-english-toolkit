@@ -7,7 +7,7 @@
 
 `~/.barry-english/profile.md`
 
-> 用 home 目录下隐藏文件夹存放，跨 Claude Code project 持久；学员若想多档（家庭成员/团队）可手动复制为不同文件名，由 onboarding 时指定路径。
+> 用 home 目录下隐藏文件夹存放，跨 AI Agent project 持久；学员若想多档（家庭成员/团队）可手动复制为不同文件名，由 onboarding 时指定路径。
 
 ## Schema (v0.4 · 2026-05-07 第二次校准)
 

@@ -22,8 +22,8 @@
 | `barry-logic-to-speech` SKILL.md | v0.1(2026-05-15 加入) | 编排器,串联 barry-logic-training → barry-speech-training → barry-translation-training,一条龙产出英文演讲稿。两通道(标准 / 快速) |
 | `methodology/` (toolkit 自带 wiki) | v1.0 | 108 页方法论 wiki 随 toolkit ship,从 Barry 私库 `方法论/wiki/` 单向 sync;含 sanitize 预检 |
 | `scripts/sync-methodology.sh` | v0.2 | 单向 sync 脚本:私库 wiki → toolkit/methodology/。Layer 1 = Hard Blocker grep(18 个 pattern,含学员姓名 / 邮箱 / 凭证 / 内部路径)abort;Layer 2 = 自动 rewrite 内部 `raw/barry/<file>` / `raw/external/<file>` 引用为通用占位符 |
-| `scripts/install.sh` + `install.ps1` | v0.2 | Mac/Linux/WSL + Windows 一键安装脚本:复制 9 SKILL 到 `~/.claude/skills/` + 复制 methodology wiki 到 `~/.barry-english/methodology/` + 验证 |
-| `marketplace.json` (一行命令安装) | 待开发 | 学员 fallback 用 `cp -R skills/* ~/.claude/skills/` |
+| `scripts/install.sh` + `install.ps1` | v0.2 | Mac/Linux/WSL + Windows 一键安装脚本:复制 10 个 Skill 到 `~/.claude/skills/`(含 barry-methodology) + 复制 methodology wiki 到 `~/.barry-english/methodology/` + 验证 |
+| `npx skills` 一行命令安装 | 已接入 | `npx -y skills add InterpreterBarry/barry-english-toolkit -g --all` |
 | Linux / WSL 启动脚本 (`Barry-Quiz.sh`) | 未支持 | 当前 README 已声明 Mac / Windows;Linux 学员可手动 `cd ~/.barry-english/quiz-web && node server.js` |
 
 ---
@@ -44,8 +44,8 @@ barry-onboarding (orchestrator)
    ├─→ barry-profile     ── writes ── ~/.barry-english/profile.md  Section 1
    ├─→ barry-assessment  ── writes ── ~/.barry-english/profile.md  Section 2 + 3 (含"音标偏好")
    └─→ barry-solution    ── writes ── ~/.barry-english/profile.md  Section 4
-                         ── installs ─ ~/.claude/skills/barry-daily-<slug>/SKILL.md
-                         ── copies ── ~/.barry-english/quiz-web/  (从 ~/.claude/skills/barry-solution/quiz-web/)
+                         ── installs ─ 当前 Agent skills 目录/barry-daily-<slug>/SKILL.md
+                         ── copies ── ~/.barry-english/quiz-web/  (从当前 Agent skills 目录的 barry-solution/quiz-web/)
                          ── creates ─ ~/Desktop/Barry-Quiz.command  (Mac)
                                       ~/Desktop/Barry-Quiz.bat       (Windows)
 
@@ -58,7 +58,7 @@ barry-onboarding (orchestrator)
    ├─→ barry-speech-training        独立演讲准备(教练 / 快速 2 模式)
    ├─→ barry-translation-training   独立翻译训练(教练 5 步 / 快速 2 模式)
    └─→ barry-logic-to-speech        编排器,串联以上 3 个产出英文演讲稿
-   (4 个都引用 ~/.barry-english/methodology/wiki/ 的对应板块作为理论锚)
+   (4 个都通过 barry-methodology 资源包引用 methodology wiki 的对应板块作为理论锚)
 
 Quiz Web (本地 server)
                          ── reads  ── ~/.barry-english/fancy-vocab.md
