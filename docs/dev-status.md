@@ -20,8 +20,8 @@
 | `barry-speech-training` SKILL.md | v0.1(2026-05-15 加入) | 任务驱动训练:公众演讲独立训练,2 模式(教练 / 快速),核心差异点=深度受众分析。链 wiki `03-公众演讲-说清楚/` |
 | `barry-translation-training` SKILL.md | v0.1(2026-05-15 加入) | 任务驱动训练:翻译技巧独立训练,2 模式(教练 5 步 / 快速),脱壳深度按学员水平自适应。链 wiki `02-翻译能力/软实力/` |
 | `barry-logic-to-speech` SKILL.md | v0.1(2026-05-15 加入) | 编排器,串联 barry-logic-training → barry-speech-training → barry-translation-training,一条龙产出英文演讲稿。两通道(标准 / 快速) |
-| `methodology/` (toolkit 自带 wiki) | v1.0 | 108 页方法论 wiki 随 toolkit ship,从 Barry 私库 `方法论/wiki/` 单向 sync;含 sanitize 预检 |
-| `scripts/sync-methodology.sh` | v0.2 | 单向 sync 脚本:私库 wiki → toolkit/methodology/。Layer 1 = Hard Blocker grep(18 个 pattern,含学员姓名 / 邮箱 / 凭证 / 内部路径)abort;Layer 2 = 自动 rewrite 内部 `raw/barry/<file>` / `raw/external/<file>` 引用为通用占位符 |
+| `skills/barry-methodology/methodology/` (单一来源 wiki) | v1.1 | 105 页方法论 wiki,**唯一**存放于 barry-methodology 资源包内(顶层 methodology/ 已废弃),从 Barry 私库 `方法论/wiki/` 单向 sync;含 sanitize 预检 |
+| `scripts/sync-methodology.sh` | v0.3 | 单向 sync 脚本:私库 wiki → skills/barry-methodology/methodology/(单一来源)。Layer 1 = Hard Blocker grep(18 个 pattern,含学员姓名 / 邮箱 / 凭证 / 内部路径)abort;Layer 2 = 自动 rewrite 内部 `raw/barry/<file>` / `raw/external/<file>` 引用为通用占位符 |
 | `scripts/install.sh` + `install.ps1` | v0.2 | Mac/Linux/WSL + Windows 一键安装脚本:复制 10 个 Skill 到 `~/.claude/skills/`(含 barry-methodology) + 复制 methodology wiki 到 `~/.barry-english/methodology/` + 验证 |
 | `npx skills` 一行命令安装 | 已接入 | `npx -y skills add InterpreterBarry/barry-english-toolkit -g --all` |
 | Linux / WSL 启动脚本 (`Barry-Quiz.sh`) | 未支持 | 当前 README 已声明 Mac / Windows;Linux 学员可手动 `cd ~/.barry-english/quiz-web && node server.js` |
@@ -71,4 +71,4 @@ Quiz Web (本地 server)
 
 工具箱设计基于 Barry 英文沟通方法论(MCES、Four Strands、Hearing vs Listening、被动 vs 主动词汇等)。
 
-**2026-05-14 起 methodology wiki 完整 ship 进 toolkit**,在 `methodology/` 目录(108 页 / 8 个子目录 / 800K),`barry-coach` 通过 RAG 模式实时读取。Barry 私库 wiki 是 source of truth,toolkit 副本通过 `scripts/sync-methodology.sh` 单向同步(含 sanitize 预检)。
+**methodology wiki 完整 ship 进 toolkit**,作为单一来源存放在 `skills/barry-methodology/methodology/` 目录(105 页 / 8 个子目录),随 barry-methodology 资源包一起分发,`barry-coach` 通过 RAG 模式实时读取。Barry 私库 wiki 是 source of truth,toolkit 副本通过 `scripts/sync-methodology.sh` 单向同步(含 sanitize 预检)。

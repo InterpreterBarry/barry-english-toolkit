@@ -20,8 +20,8 @@ Write-Host "  Toolkit root: $ToolkitRoot"
 Write-Host ""
 
 # === 1. 预检查 ===
-if (-not (Test-Path "$ToolkitRoot\skills") -or -not (Test-Path "$ToolkitRoot\methodology")) {
-    Write-Host "  ❌ Not a valid toolkit repo (expected skills/ + methodology/ at root)" -ForegroundColor Red
+if (-not (Test-Path "$ToolkitRoot\skills") -or -not (Test-Path "$ToolkitRoot\skills\barry-methodology\methodology")) {
+    Write-Host "  ❌ Not a valid toolkit repo (expected skills/ + skills/barry-methodology/methodology/)" -ForegroundColor Red
     Write-Host "     Run this script from inside the toolkit repo root."
     exit 1
 }
@@ -52,7 +52,7 @@ Write-Host ""
 Write-Host "  📥 Installing methodology wiki to $BarryHome\methodology ..."
 $WikiDst = "$BarryHome\methodology"
 if (Test-Path $WikiDst) { Remove-Item -Recurse -Force $WikiDst }
-Copy-Item -Recurse "$ToolkitRoot\methodology" $WikiDst
+Copy-Item -Recurse "$ToolkitRoot\skills\barry-methodology\methodology" $WikiDst
 $Pages = (Get-ChildItem -Recurse -Filter '*.md' "$WikiDst\wiki" -ErrorAction SilentlyContinue).Count
 Write-Host "    ✓ $Pages wiki pages installed"
 

@@ -26,9 +26,9 @@ echo ""
 echo "  Toolkit root: $TOOLKIT_ROOT"
 echo ""
 
-# === 1. 预检查:必须在 toolkit 根目录跑,且 skills/ + methodology/ 都存在 ===
-if [ ! -d "$TOOLKIT_ROOT/skills" ] || [ ! -d "$TOOLKIT_ROOT/methodology" ]; then
-  echo "  ❌ Not a valid toolkit repo (expected skills/ + methodology/ at root)"
+# === 1. 预检查:必须在 toolkit 根目录跑,且 skills/ + barry-methodology 资源包都存在 ===
+if [ ! -d "$TOOLKIT_ROOT/skills" ] || [ ! -d "$TOOLKIT_ROOT/skills/barry-methodology/methodology" ]; then
+  echo "  ❌ Not a valid toolkit repo (expected skills/ + skills/barry-methodology/methodology/)"
   echo "     Run this script from inside the toolkit repo root."
   exit 1
 fi
@@ -57,7 +57,7 @@ echo ""
 echo "  📥 Installing methodology wiki to $BARRY_HOME/methodology ..."
 # 删除旧版(确保是最新)
 rm -rf "$BARRY_HOME/methodology"
-cp -R "$TOOLKIT_ROOT/methodology" "$BARRY_HOME/methodology"
+cp -R "$TOOLKIT_ROOT/skills/barry-methodology/methodology" "$BARRY_HOME/methodology"
 PAGES=$(find "$BARRY_HOME/methodology/wiki" -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
 echo "    ✓ $PAGES wiki pages installed"
 
