@@ -40,7 +40,7 @@ id: what-so-what-now-what
 
 ```
 Well, I have been an avid hiker for years.                          ← What(讲事实)
-I'm really excited to learn about the new equipment here,
+I'm really excited to learn about the new equipment here,           
 since I'm looking for ways to avoid getting injured.                ← So What(讲意义)
 Do you do a lot of outdoor activities?                              ← Now What(抛回去)
 ```

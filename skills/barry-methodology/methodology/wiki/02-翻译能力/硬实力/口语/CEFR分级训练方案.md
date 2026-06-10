@@ -5,6 +5,7 @@ id: cefr-graded-training-plan
 # CEFR 分级训练方案
 
 > 不同级别的学员用不同的训练方案。**A 级打地基、B 级大量视译、C 级高标准演讲**——不分级硬练,容易要么难到放弃、要么简单到没增量。
+> ⚡ 快速查阅：[[ABC×Four-Strands速查表]]（含 Four Strands 配比 + 12 方法 × ABC 明细）。
 
 ## 定位:应用层(按级配训练)
 

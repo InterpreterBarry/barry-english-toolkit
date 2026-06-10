@@ -10,6 +10,7 @@ id: four-strands-training-toolbox
 
 [[Four-Strands-总览]] → 训练方法工具箱（本页）。
 配套使用：[[CEFR分级训练方案]] / [[Four-Strands-与Barry方法论的融合]]。
+⚡ 快速查阅：[[ABC×Four-Strands速查表]]（单页压缩版）。
 
 ---
 
@@ -160,7 +161,7 @@ id: four-strands-training-toolbox
 | **三类内容** | (a) 不熟悉的词 (b) 该级别应积累的 (c) **单词 + 固定表达 + 固定句型**（三类都要）|
 | **4 列标准格式** | 英文 \| 音标（**询问美式 or 英式**，按学员偏好固定）\| 中文意思 \| 英文例句 + 中文翻译 |
 | **本地存储** | 学员专属词汇表（本地 Markdown）→ 同步到 Anki 网页数据库 |
-| **配套方法** | [[间隔重复-Spaced-Repetition]] / [[词汇学习-两种方式]] / [[训练目标-三个维度]] |
+| **配套方法** | [[间隔重复-Spaced-Repetition]] / [[词汇学习-两种方式]] / [[中英语块-两个维度]] |
 
 #### Anki 网页要复现的核心功能
 
@@ -346,7 +347,7 @@ id: four-strands-training-toolbox
 | Mini Presentation | [[Mini-Presentation训练方法论]] |
 | 发音 | [[发音-S节点专题]] / [[Shadowing八步法]] |
 | 4-3-2 | [[4-3-2-技巧]] |
-| 语块积累 | [[语块概念-Meaning-Unit]] / [[训练目标-三个维度]] / [[被动词汇vs主动词汇]] |
+| 语块积累 | [[语块概念-Meaning-Unit]] / [[中英语块-两个维度]] / [[被动词汇vs主动词汇]] |
 | ABC 分级 | [[CEFR分级训练方案]] |
 | 词汇训练 | [[词汇学习-两种方式]] / [[间隔重复-Spaced-Repetition]] |
 | Listening 诊断 | [[听力问题诊断体系-Hearing-vs-Listening]] |
