@@ -126,9 +126,10 @@ RISA 是**进入争论前的门禁**:
 ## 来源
 
 - `Barry 内部素材` 三.15(待迁入)
-- YouTube *This Simple Tool Will Improve Your Critical Thinking*(Pursuit of Wonder)
-- Bo Seo 著作及访谈(待吸纳笔记)
+- 科普转述渠道:YouTube *This Simple Tool Will Improve Your Critical Thinking*(Pursuit of Wonder)——Barry 接触到 RISA 的渠道,非原始出处
+- Bo Seo《Good Arguments: How Debate Teaches Us to Listen and Be Heard》(2022)及访谈(待吸纳笔记)
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 批量打磨:来源补 Bo Seo 书名《Good Arguments》(2022);YouTube 标注为科普转述渠道(非原始出处)

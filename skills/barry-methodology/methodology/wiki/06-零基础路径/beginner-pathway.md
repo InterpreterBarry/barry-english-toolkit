@@ -5,7 +5,7 @@ id: beginner-pathway
 # 零基础英语学习路径
 
 > 本文档面向**纯粹零基础**的成人学习者（从未接触过英语，或只会 ABC 和 Hello 的程度）。
-> Barry 主体系（MCE 三角形、语块优先、视译输出）面向的是已有基础的中国职场人，不适用于零基础。本路径是零基础到"有基础"之间的桥梁。
+> Barry 主体系（MCES 模型、语块优先、视译输出）面向的是已有基础的中国职场人，不适用于零基础。本路径是零基础到"有基础"之间的桥梁。
 
 **核心参考来源**：Gabriel Wyner《Fluent Forever》Stage 1-2（读书笔记见 [[Fluent Forever - Book Notes]]），结合 Barry 方法论调性和学术证据进行调整。
 
@@ -149,7 +149,7 @@ id: beginner-pathway
 - 能用简单句表达基本需求
 
 **衔接方式**：
-进入 Barry 主体系 → MCE 三角形 → 语块优先 → 视译训练 → 输出驱动（完整方法论见 [[Barry职场英文沟通方法论_完整版|Barry职场英文沟通方法论]]）
+进入 Barry 主体系 → [[MCES模型|MCES 模型]] → 语块优先 → 视译训练 → 输出驱动（完整方法论见 [[Barry职场英文沟通方法论_完整版|Barry职场英文沟通方法论]]）
 
 **本质转换**：
 从"从零建楼"模式 → 切换到"装修+加建"模式。
@@ -162,5 +162,9 @@ id: beginner-pathway
 
 - Nation, I.S.P. (2006). How Large a Vocabulary Is Needed For Reading and Listening?
 - Logan, J.S., Lively, S.E., & Pisoni, D.B. (1991). Training Japanese listeners to identify English /r/ and /l/: A first report (JASA)
-- Thomson, R.I. (2018). High variability [pronunciation] training (HVPT): A meta-analysis of L2 perceptual training studies (Studies in Second Language Acquisition, Cambridge)
+- Thomson, R.I. (2018). High Variability [Pronunciation] Training (HVPT): A proven technique about which every language teacher and learner ought to know. *Journal of Second Language Pronunciation*, 4(2).
 - Gabriel Wyner (2014). Fluent Forever: How to Learn Any Language Fast and Never Forget It
+
+## 更新记录
+
+- **[2026-06-11]** 巡检修复:"MCE 三角形"更新为"MCES 模型"(两处,Stage 4 衔接处加 wikilink);Thomson (2018) 引文期刊归属修正为 *Journal of Second Language Pronunciation*

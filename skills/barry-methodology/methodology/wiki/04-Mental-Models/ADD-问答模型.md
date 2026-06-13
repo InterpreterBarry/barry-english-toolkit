@@ -67,13 +67,13 @@ Q&A 场景:我的观点和**提问者的关切**的连接点
 
 > **[A]** 我容易被邮件和 Slack 消息打断工作节奏。**[D]** 每天班次开始时,收件箱常有二十条消息,会拖慢我启动任务的速度。**[D/Solution]** 现在我在手机上设了 10 分钟闹钟,响了就停止回消息,开始做正事。
 
-### 英文示例(汇报被领导质问进度落后)
+### 英文示例(汇报被领导质问发布为什么延期)
 
-> Supply chain issues and logistics delays have slowed us down **[A]**. For example, the materials we use to build the product foundation were delayed at the port for ten additional days due to tariff issues **[D]**. We have initiated contracts with additional suppliers and have looked into alternate transport methods to reduce future delays **[D-Solution]**.
+> The launch slipped because our QA team found a critical bug two days before go-live **[A]**. Specifically, the payment flow failed on about 5% of mobile devices, and shipping it would have meant lost transactions for real customers **[D]**. We've already added an automated device-testing step to our release checklist, so this class of issue gets caught a full sprint earlier next time **[D-Solution]**.
 
-### 英文示例(面试问工作经验)
+### 英文示例(面试问相关工作经验)
 
-> I have over fifteen years of experience in this field **[A]**. I have worked for three companies, defining the scope of new projects, facilitating cross-functional teams, and presenting results to executives **[D]**. This means I can more quickly identify challenges and provide potential solutions to the issues you and your team are confronting **[D-value]**.
+> I've spent the last eight years managing cross-functional product launches **[A]**. At my current company, I led the rollout of three major products, coordinating between engineering, marketing, and sales, and reporting progress directly to the leadership team **[D]**. That means I can step into your team and start de-risking your roadmap from week one, instead of needing months to ramp up **[D-value]**.
 
 ## 相关方法论
 
@@ -88,7 +88,10 @@ Q&A 场景:我的观点和**提问者的关切**的连接点
 
 - `Barry 内部素材` 一.4(待迁入)
 - `Barry 内部素材` No.4 详细版(待迁入)
+- 框架结构引介自 Matt Abrahams《Think Faster, Talk Smarter》(2023),经 Barry 场景化改编
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 巡检修复:来源补 Abrahams 出处
+- **[2026-06-11]** 按 Barry 定夺:演示例句替换为原创职场例句(替换疑似 Abrahams 原书例句,为开源做准备)

@@ -4,19 +4,18 @@ id: kiss-principle
 
 # KISS 原则
 
-> **Keep It Short and Simple.** 口语沟通的默认原则。职场英语 80% 的场景,简单短句 > 复杂长句。**操作上 = [[中到英翻译-三步走]] 的 Step 1(切分)+ Step 2(脱壳)合起来**。
+> **Keep It Short and Simple.** 口语沟通的默认原则,职场英语 80% 的场景简单短句 > 复杂长句。它是 [[中到英翻译-三步走]] 输出的英文风格:**切分让它「短」、脱壳让它「简单」**。
 
 ## KISS 在三步走里的位置 ⭐
 
 ```
 [[中到英翻译-三步走]]:
-   Step 1 切分(一个 message 一句话) ─┐
-                                      ├── = KISS 原则
-   Step 2 脱壳(主谓宾小短句) ───────┘
-   Step 3 逻辑显化
+   Step 1 切分 ──→ 让英文「短」(一意一句) ─┐
+   Step 2 脱壳 ──→ 让英文「简单」(剥到大白话) ─┤── 合起来 = 输出的英文满足 KISS
+   Step 3 出英文小短句 + 逻辑显化 ───────────┘
 ```
 
-**KISS 不是独立的第三步,而是 Step 1+2 合起来的命名。** 切分让"短"成立,脱壳让"简单"成立——合起来就是 Keep It **Short** and **Simple**。
+**KISS 不是某一步,而是三步走追求的英文结果。** 切分让"短"成立,脱壳让"简单"成立——所以最后落地的英文小短句天然是 Keep It **Short** and **Simple**。
 
 ## 核心观点 / WHAT
 
@@ -51,21 +50,21 @@ KISS 的本质:一句话,一个意思,一个节拍。
 
 **KISS 不是一刀切**,执行强度随水平调节。
 
-| CEFR 级别 | KISS 执行方式 |
-|---|---|
-| **A1-A2** | **严格 KISS**:短句为主,一句话一个意思 |
-| **B1-B2** | **适度 KISS**:可以用连词串联,适当使用从句 |
-| **B2-C1** | **灵活处理**:可以用更复杂的句式嵌套信息,但不刻意复杂化 |
+| 档位 | 对应 CEFR | KISS 执行方式 |
+|---|---|---|
+| **A 档** | A1-A2 | **严格 KISS**:短句为主,一句话一个意思 |
+| **B 档** | B1-B2 | **适度 KISS**:可以用连词串联,适当使用从句 |
+| **C 档** | C1 及以上 | **灵活处理**:可以用更复杂的句式嵌套信息,但不刻意复杂化 |
 
-### A1-A2 严格 KISS 示例
+### A 档严格 KISS 示例
 
 **场景**:汇报项目进度
 
-> *The project is on track. We finished the design last week. We start the development tomorrow.*
+> *The project is on track. We finished the design last week. Development starts tomorrow.*
 
 短句为主,每句一个事实。听起来不酷,但**听众 100% 听懂**。
 
-### B1-B2 适度 KISS 示例
+### B 档适度 KISS 示例
 
 同一个 Message,可以升级为:
 
@@ -73,7 +72,7 @@ KISS 的本质:一句话,一个意思,一个节拍。
 
 加了破折号连接、加了 and 并列,但**仍然在 KISS 的精神里**:一个思路,清晰结构。
 
-### B2-C1 灵活示例
+### C 档灵活示例
 
 > *We're on track with the project. Having completed the design phase last week, we're now set to move into development starting tomorrow.*
 
@@ -100,17 +99,17 @@ KISS 的本质:一句话,一个意思,一个节拍。
 
 **Message**:因为客户反馈不好,所以下一版要调整
 
-| 级别 | 英文 |
+| 档位 | 英文 |
 |---|---|
-| A1-A2 严格 | *Clients were unhappy. So we need to change the next version.* |
-| B1-B2 适度 | *Clients weren't happy with it, so we need to adjust the next version.* |
-| B2-C1 灵活 | *Given the pushback we got from clients, we'll need to rework the next version.* |
+| A 档严格 | *Clients were unhappy. So we need to revise the next version.* |
+| B 档适度 | *Clients weren't happy with it, so we need to adjust the next version.* |
+| C 档灵活 | *Given the pushback we got from clients, we'll need to rework the next version.* |
 
 **三个都合格**——匹配自己水平的就是最好的。
 
 ## 相关方法论
 
-- [[中到英翻译-三步走]] — KISS = 三步走的 Step 1+2 合称 ⭐
+- [[中到英翻译-三步走]] — KISS = 三步走输出的英文风格(切分→短、脱壳→简单)⭐
 - [[脱壳-Deverbalization]] — KISS 是脱壳后重表达的底层约束
 - [[CEFR分级训练方案]] — CEFR 级别划分的完整参考
 - [[逻辑连词显化]] — KISS ≠ 省逻辑
@@ -124,3 +123,5 @@ KISS 的本质:一句话,一个意思,一个节拍。
 
 - **[2026-04-23]** 新建(批量拆分阶段)
 - **[2026-05-01]** 顶部明确 **KISS = 中到英三步走 Step 1+2 合称**——切分(短)+ 脱壳(简单);相关方法论里 [[中到英翻译-三步走]] 提到首位
+- **[2026-06-11]** 按 Barry 定夺:KISS 重新定位为**三步走输出的英文风格**(切分→短、脱壳→简单),不再说成"Step 2 的一意一短句";脱壳本身产出大白话、不出英文
+- **[2026-06-11]** 批量打磨:CEFR 档位改 A/B/C 三档消除 B2 重叠(C 档为 C1 及以上);示例英文修地道(*We start the development*→*Development starts*、*change the next version*→*revise the next version*);相关方法论 KISS 表述对齐"三步走输出的英文风格"

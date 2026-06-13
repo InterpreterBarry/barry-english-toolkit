@@ -52,13 +52,13 @@ id: aaa-apology
 
 > **[Acknowledge]** 很抱歉我刚才提高嗓门打断了你,那是我的错。**[Appreciate]** 我知道这种态度让大家不舒服,影响了团队协作。**[Amends]** 从今天起,每当我激动时,我会等别人说完,降低音量,先复述我听到的再发表意见。
 
-### 英文示例(开会叫错名字)
+### 英文示例(把同事的功劳算到自己头上)
 
-> I apologize for not saying your name correctly. How do you pronounce it **[Acknowledge]**? I can imagine that it feels uncomfortable to be called by the wrong name and that it might be challenging to correct me **[Appreciate]**. In the future, I will look over the list of participants and ask about pronunciations prior to starting the meeting **[Amends]**.
+> I owe you an apology. In Monday's review, I presented the dashboard as my work, when the truth is you built most of it **[Acknowledge]**. I can imagine how frustrating it is to see your effort go unrecognized in front of leadership **[Appreciate]**. I've already emailed our manager to set the record straight, and from now on I'll make sure we present shared work together so everyone gets proper credit **[Amends]**.
 
-### 英文示例(因语言不通忽略海外同事的想法)
+### 英文示例(临时取消已确认的会议没提前通知)
 
-> I'm sorry. I was struggling to understand what you were saying and began to listen to and seek advice from others **[Acknowledge]**. I understand that this left you out of the conversation, which couldn't have felt good **[Appreciate]**. Let me ask everyone next time to contribute ideas in the chat window so that I can see everyone's contributions equally **[Amends]**.
+> I'm sorry for canceling our sync this morning at the last minute **[Acknowledge]**. I realize you'd cleared your whole afternoon to prepare for it, and pulling the plug an hour before wasted that time **[Appreciate]**. Going forward, if I ever have to reschedule, I'll give you at least a day's notice and send the new slot right away **[Amends]**.
 
 ## 相关方法论
 
@@ -66,13 +66,17 @@ id: aaa-apology
 - [[4I-反馈模型]] — 反方向:别人错了你怎么说
 - [[ADD-问答模型]] — 被指责/质问时,先道歉再用 ADD 答
 - [[Communication-Outline]] — 道歉是结构化沟通的特殊场景
-- 沟通三要素 — 表达得好的一种高难度子场景
+- [[WHAT-敬酒词框架]] — 同属社交情感场景的短框架
 
 ## 来源
 
 - `Barry 内部素材` 一.6(待迁入)
 - `Barry 内部素材` No.6 详细版(待迁入)
+- 框架结构引介自 Matt Abrahams《Think Faster, Talk Smarter》(2023),经 Barry 场景化改编
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 巡检修复:来源补 Abrahams 出处;删除失效的"沟通三要素"条目
+- **[2026-06-11]** 按 Barry 定夺:演示例句替换为原创职场例句(替换疑似 Abrahams 原书例句,为开源做准备)
+- **[2026-06-11]** 批量打磨:相关方法论补 WHAT-敬酒词(社交情感框架同类),wikilink 由 4 补到 5

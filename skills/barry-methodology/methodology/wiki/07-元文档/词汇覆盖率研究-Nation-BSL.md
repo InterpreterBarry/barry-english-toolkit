@@ -2,13 +2,13 @@
 id: vocabulary-coverage-research-nation
 ---
 
-# 词汇覆盖率研究 · Nation & BSL
+# 词汇覆盖率研究 · Nation / Hsu & BSL
 
-> Paul Nation 的词汇覆盖率研究 + BSL(Business Service List)对标 + Barry 自编教材词汇统计。**职场英语的瓶颈不是词汇量不够,是认识的词用不出来**——所以语块和输出训练才是关键。
+> 词汇覆盖率研究(Nation 范式 + Hsu 商务数据)+ BSL(Business Service List)对标 + Barry 自编教材词汇统计。**职场英语的瓶颈不是词汇量不够,是认识的词用不出来**——所以语块和输出训练才是关键。
 
-## WHAT:Nation 词汇覆盖率研究
+## WHAT:词汇覆盖率研究(Nation 范式 + Hsu 商务数据)
 
-基于 Nation (2006) 及商务英语语料库研究:
+下表的商务覆盖率数字出自 **Hsu (2011)** 对商务教材 / 论文语料的研究;"多少词族 = 多少覆盖率"这一范式与通用语料阈值的奠基是 **Nation (2006)**:
 
 | 词汇量(词族) | 覆盖率 | 对应水平 |
 |---|---|---|
@@ -40,11 +40,13 @@ BSL(Browne & Culligan 2015)基于 **6,400 万词商务语料库**,包含 **1,744
 
 **Barry 的两本自编教材**:《职场核心词汇精讲》Part 1(34 课)+《职场英语高频词汇》(5 单元)。
 
-- BSL 1,744 词族中,Barry 两本书**主讲覆盖 91 个,例句中额外覆盖 56 个,合计触及约 147 个**
-- 未覆盖的 1,597 个中,**金融 / 会计 / 经济 / 法律专有术语占绝大多数(~1,560 个)**,**不属于 Barry 的教学范围**
-- 真正的通用商务缺口:**仅 37 个词**——两本书中完全未出现的通用职场高频词
+- BSL 1,744 词族中,Barry 两本书**主讲覆盖约 91 个**(例句另触及一批)
+- 未覆盖的约 1,653 个,按领域客观分布(BSL 分析数据 `bsl_analysis_results.json`):**窄领域专业术语**——金融/会计(162)+ 经济(54)+ 法律(47)≈ **263 个**,超出通用职场范围、不教;**通用/跨领域**——General(1,323)+ 运营/HR/市场/技术(约 67)≈ **1,390 个**,这才是"通用职场英语"该覆盖的主体
+- ⚠️ 所以通用职场词缺口**是上千量级**("仅 37 个"基于过宽的人工术语分类,已废弃)——正好说明值得正向建一张通用职场核心词表(规划见下)
 
-### 37 个真实缺口词(按实用性分类)
+### 可补充的通用职场高频词(举例)
+
+下面这些是 BSL 里偏通用、Barry 教材目前着墨较少、**下一版可以补**的方向(举例,非穷尽):
 
 | 类别 | 词汇 |
 |---|---|
@@ -56,7 +58,7 @@ BSL(Browne & Culligan 2015)基于 **6,400 万词商务语料库**,包含 **1,744
 | 人事 / 管理 | appraisal, credential, trainee, harassment |
 | 其他高频 | scrutiny, integrate, spreadsheet |
 
-这 37 个词是 Barry 教材**下一版可以补充**的目标。
+这些是教材**下一版可以补充**的方向。
 
 ## WHY:Barry 教材的差异化优势(231 个 BSL 没有的词)
 
@@ -96,7 +98,7 @@ BSL(Browne & Culligan 2015)基于 **6,400 万词商务语料库**,包含 **1,744
 
 ### 与 Nation 语料库的关系
 
-- 这 400-500 词族中约 **80-85% 包含在 Nation 的 3,500 词族内**(主要落在第 1,000-3,500 频率段)
+- 这 400-500 词族中约 **80-85% 落在前 3,500 高频词族内**(第 1,000-3,500 频率段)
 - 剩余 15-20% 为更专业的术语(RSU、RACI、BPO、OKR 等),落在 3,500 以外
 - **两本书的核心价值不在词族覆盖量**,而在**每个词族配了职场语境 + 搭配用法 + 例句**,即"从认识到会用"的桥梁
 
@@ -124,10 +126,12 @@ BSL(Browne & Culligan 2015)基于 **6,400 万词商务语料库**,包含 **1,744
 ## 来源
 
 - `Barry 内部素材` 职场英语词汇覆盖率 + Barry 自编教材词汇统计 + BSL 对标分析
-- Nation, I.S.P. (2006). How Large a Vocabulary Is Needed For Reading and Listening?
+- Nation, I.S.P. (2006). How Large a Vocabulary Is Needed For Reading and Listening? —— 覆盖率范式 + 通用语料阈值(奠基)
+- **Hsu, W. (2011). The vocabulary thresholds of business textbooks and business research articles for EFL learners. *English for Specific Purposes*, 30(4), 247-257.** —— 本页 3,500 / 5,000 / 8,000 词族商务阈值 + 学科差异(运营管理最易 / 商业战略最难)的直接出处
 - Browne, C. & Culligan, B. (2015). The Business Service List (BSL). New General Service List Project.
-- The vocabulary thresholds of business textbooks and business research articles for EFL learners (English for Specific Purposes, 2011)
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 按 Barry 定夺:商务覆盖率数字(3,500 / 5,000 / 8,000 词族)出处明确为 **Hsu (2011)**(原笼统挂在 Nation 名下);来源补 Hsu 完整文献;通用框架仍归 Nation。**数字与结论未改**
+- **[2026-06-11b]** 按 Barry 定夺:重做 BSL 缺口结论——删除"缺口仅 37 个"的断言(依赖过宽的人工术语分类),改用 `bsl_analysis_results.json` 的领域分布:窄领域术语(金融/经济/法律)≈263,General/跨领域通用≈1,390,通用职场缺口是上千量级;原"37 缺口词"清单保留为"可补充通用词举例"

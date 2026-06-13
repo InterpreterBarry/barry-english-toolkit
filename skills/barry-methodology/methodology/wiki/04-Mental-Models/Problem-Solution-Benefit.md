@@ -14,7 +14,7 @@ id: problem-solution-benefit
 - **Solution**:提出解决方案,**主动把用户顾虑涵盖进去**
 - **Benefit**:按重要性排序,列明采用方案后的好处
 
-和汇报模型(Problem-Reason-Solution)很像,但**少了"原因",多了"好处"**——因为说服不是让对方理解你,是让对方**行动**,好处是行动的发动机。
+这三段为什么是"方案 + 好处"而不是"方案 + 原因"?因为说服不是让对方理解你,是让对方**行动**——好处才是行动的发动机。
 
 ## WHY:为什么这三段缺一不可
 
@@ -58,9 +58,9 @@ id: problem-solution-benefit
 
 > **[Problem]** 周三的跨部门会常常超时 25 分钟。**[Solution]** 改成严格 50 分钟封顶,最后 10 分钟专门分配 action items。**[Benefit]** 市场团队上季度用这招,后续邮件减少 40%,决策质量不降。
 
-### 英文示例(推销电商平台)
+### 英文示例(向客户推销团队协作工具)
 
-> **[Opportunity]** What if you could intake customer orders more efficiently while offering a more personalized experience? **[Solution]** Using your platform, Company XYZ is now processing orders 50% faster and getting paid one week earlier, while customers report higher satisfaction. **[Benefits]** And that's not all—with the data we collect, we can better recommend products to your customers, increasing your sales.
+> **[Opportunity]** What if your project teams could cut the time they spend chasing status updates in half? **[Solution]** With our platform, your managers get a single live dashboard, so no one has to sit through another "what's everyone working on" meeting—and onboarding a new hire takes days instead of weeks. **[Benefits]** On top of that, the usage data we surface helps you spot bottlenecks before they slip a deadline, so projects ship on time and your teams stop burning out.
 
 **句型模板**:`What if + 句子`——很适合用来引入"机会型"问题或提建议。
 
@@ -71,13 +71,16 @@ id: problem-solution-benefit
 - [[Communication-Outline]] — 更大的沟通结构
 - [[CRAC-辩论模型]] — 辩论场景(有冲突)vs 说服场景(无冲突)的对照
 - [[ADD-问答模型]] — Q&A 场景的配套
-- 沟通三要素 — 想清楚 → 表达得好 → 讲地道里的"表达得好"
 
 ## 来源
 
 - `Barry 内部素材` 一.3(待迁入)
 - `Barry 内部素材` No.3 详细版(待迁入)
+- 框架结构引介自 Matt Abrahams《Think Faster, Talk Smarter》(2023),经 Barry 场景化改编
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 巡检修复:英文示例人称理顺(our platform / your company,向潜在客户推销视角);来源补 Abrahams 出处;删除失效的"沟通三要素"条目
+- **[2026-06-11]** 按 Barry 定夺:演示例句替换为原创职场例句(替换疑似 Abrahams 原书例句,为开源做准备)
+- **[2026-06-11]** 按 Barry 定夺:删掉悬空引用「和汇报模型(Problem-Reason-Solution)很像」(该页不存在),保留「好处是行动发动机」的核心论点

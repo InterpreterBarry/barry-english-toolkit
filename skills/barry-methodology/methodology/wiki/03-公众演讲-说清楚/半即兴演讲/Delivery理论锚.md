@@ -8,7 +8,7 @@ id: delivery-theory-anchor
 
 ## 板块定位
 
-[[0-公众演讲板块总览|公众演讲板块]] / [[wiki/03-公众演讲-说清楚/半即兴演讲|半即兴演讲]] / **传达(Delivery)章节** —— 整个 Delivery 章节的开篇理论锚。
+[[0-公众演讲板块总览|公众演讲板块]] / [[0-半即兴演讲总览|半即兴演讲]] / **传达(Delivery)章节** —— 整个 Delivery 章节的开篇理论锚。
 
 ## 核心论证 ⭐
 
@@ -84,7 +84,7 @@ State(紧张应对)─→ Voice(声音) ─→ Appearance(外在)
    (心态)           (Vocal Image)    (Physical Image)
 ```
 
-**飞书课件的顺序是 State → Voice → Appearance**(状态先于声音和外在)——因为状态决定了你能否真正发挥 Voice 和 Appearance 的能力。
+**飞书课件的顺序是 State → Voice → Appearance**(状态先于声音和外在)——因为状态决定了你能否真正发挥 Voice 和 Appearance 的能力。**Voice 排在 Appearance 之前**,理由就在本页核心论证里:Physical Image 只**产生假设**,Vocal Image 才把**假设变成信念**——后者是决定性的那一步,所以声音权重高于外在。
 
 ## 相关方法论
 
@@ -103,3 +103,5 @@ State(紧张应对)─→ Voice(声音) ─→ Appearance(外在)
 ## 更新记录
 
 - **[2026-05-04]** 新建——按 Barry 设计访谈,把 Feishu 课件里的 **Physical/Vocal Image** 论证作为 Delivery 章节的开篇理论锚;说明为什么 Delivery 不是"次要装饰"
+- **[2026-06-11]** 巡检修复:板块定位 breadcrumb 死链改指 0-半即兴演讲总览
+- **[2026-06-11]** 批量打磨:补 Voice>Appearance 排序理由(Vocal Image 把假设变信念,是决定性一步,故权重高于只产生假设的 Physical Image)

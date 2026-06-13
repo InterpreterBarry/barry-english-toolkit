@@ -11,7 +11,7 @@ id: sagan-standard
 
 **主张有多大,证据就要有多强**。
 
-提出者:天文学家 **Carl Sagan**(卡尔·萨根)。
+因天文学家 **Carl Sagan**(卡尔·萨根)而得名——他在《Cosmos》里普及了这句话。这条原则本身更早:句式由社会学家 Marcello Truzzi 定型,思想可上溯到拉普拉斯"非凡主张需非凡证据"。
 
 三个关键:
 
@@ -94,8 +94,9 @@ B 的主张是系统性重构 → 单一"流失率高"不够,需要:漏斗各环
 ## 来源
 
 - `Barry 内部素材` 三.12(待迁入)
-- YouTube *This Simple Tool Will Improve Your Critical Thinking*(Pursuit of Wonder)
+- 科普转述渠道:YouTube *This Simple Tool Will Improve Your Critical Thinking*(Pursuit of Wonder)——Barry 接触到这把剃刀的渠道,非原始出处
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 批量打磨:"提出者"改"因其得名"(Sagan 是普及者;句式由 Truzzi 定型,思想可溯至拉普拉斯);来源里 YouTube 标注为科普转述渠道(非原始出处)

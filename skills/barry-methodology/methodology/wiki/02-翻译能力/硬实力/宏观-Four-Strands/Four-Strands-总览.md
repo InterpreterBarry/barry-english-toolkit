@@ -45,7 +45,7 @@ MFI : MFO : LFL = 1/3 : 1/3 : 1/3   (三足鼎立)
 FD                = 不独立占配比     (作为 Time Pressure 嵌入策略)
 ```
 
-**FD 融进 MFI 复述 + MFO Mini-Pre 的时间压迫策略**:
+**FD 作为时间压迫策略嵌入复述和 Mini-Pre**——复述:听材料 = MFI,首轮复述 = MFO,限时加压重复轮 = FD;Mini-Pre 同理(产出 = MFO,4-3-2 加压 = FD):
 
 | 级别 | FD 在 MFI/MFO 中的应用 |
 |---|---|
@@ -53,21 +53,19 @@ FD                = 不独立占配比     (作为 Time Pressure 嵌入策略)
 | **B 级** | 适当加入(AI 在复述 / Mini-Pre 训练时给"再压缩 X 秒"指令)|
 | **C 级** | **必含**(每次复述 / Mini-Pre 都强制走 4-3-2 流程,时间逐轮压缩)|
 
-**核心约束**:**没时间压力 ≠ Fluency**(Calum Insight 8)。Retelling / Mini-Pre 第一遍不限时追求完整,第二遍起时间减半 → 同一任务自然覆盖 MFO + FD 两条线。
+**核心约束**:**没时间压力 ≠ Fluency**(Nation 原话,见 [[Fluency-Development]] 条件 3)。Retelling / Mini-Pre 第一遍不限时追求完整,第二遍起时间减半 → 同一任务自然覆盖 MFO + FD 两条线。
 
 详见 [[Four-Strands-与Barry方法论的融合]] / [[Four-Strands-训练方法工具箱]] / [[4-3-2-技巧]]。
 
 ## HOW:关键实操原则
 
-### 1. 看目的,不看形式(Calum Insight 1)
+### 1. 看目的,不看形式
 
 同一个活动落在哪条线,取决于学习者**当下的 purpose/focus**,不是活动形式本身:
 
 - 听一段新闻听懂大意 → Meaning-focused Input
 - 听同一段新闻专门练数字听辨 → Language-focused Learning
 - 酒吧里朋友第二遍讲同一个故事 → Fluency Development
-
-> "It's all about the purpose. Not the input, not the language itself, it's what you're doing it for." — Calum
 
 ### 2. 三条 meaning 线 vs 一条 language 线
 
@@ -90,8 +88,10 @@ FD                = 不独立占配比     (作为 Time Pressure 嵌入策略)
 ## 来源
 
 - `外部参考资料` 核心框架 + 划分逻辑 + 平衡与整合
-- `Barry 内部素材` Insight 1、7
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 巡检修复:FD 嵌入口径统一——复述:听材料=MFI,首轮复述=MFO,限时加压重复轮=FD;Mini-Pre 同理(产出=MFO,4-3-2 加压=FD)
+- **[2026-06-11]** 批量打磨:"没时间压力 ≠ Fluency"归属由 Calum Insight 8 改为 Nation 原话(条件 3)
+- **[2026-06-11]** 按 Barry 定夺:清除 Calum 归属(「看目的不看形式」小标题去 Insight 1 标签 + 删 "It's all about the purpose" 英文引语 + 删来源里 Calum 课程笔记引用)

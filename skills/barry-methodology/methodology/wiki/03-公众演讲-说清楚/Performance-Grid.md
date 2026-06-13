@@ -72,9 +72,10 @@ Inspired 不是"讲得好玩"那么简单,它有三个特征:
 
 ## 来源
 
-- `Barry 内部素材` Definition - Performance Grid(待迁入)
-- `Barry 内部素材` 第四部分 1.2(待迁入)
+- `Barry 内部素材` Definition - Performance Grid
+- `Barry 内部素材` 第四部分 1.2
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 批量打磨:删除来源"(待迁入)"陈旧标记(对应 raw 文件实际已存在)

@@ -4,7 +4,7 @@ id: four-strands-training-toolbox
 
 # Four-Strands 训练方法工具箱
 
-> 把 Paul Nation Four Strands 框架下的具体训练方法**全部整理成中英双语对照工具箱**，串联 Barry 方法论已有的训练动作 + AI 时代的可执行性边界 + ABC 三档配置。用途：[[barry-solution]] Skill 出 Section 4 训练方案的素材库 + 学员自学查阅。
+> 把 Paul Nation Four Strands 框架下的具体训练方法**全部整理成中英双语对照工具箱**，串联 Barry 方法论已有的训练动作 + AI 时代的可执行性边界 + ABC 三档配置。用途：`barry-solution` Skill 出 Section 4 训练方案的素材库 + 学员自学查阅。
 
 ## 板块定位
 
@@ -29,11 +29,11 @@ id: four-strands-training-toolbox
 
 ### FD 不独立占配比（是嵌入策略）⭐
 
-**FD 不是跟另外 3 个 Strand 同等重要的一条线**——它是融入 MFI 复述 + MFO Mini Presentation 的**时间压迫策略**：
+**FD 不是跟另外 3 个 Strand 同等重要的一条线**——它是融入复述(听材料=MFI;首轮产出=MFO;限时加压轮=FD)+ MFO Mini Presentation 的**时间压迫策略**：
 
 | 级别 | FD 在 MFI/MFO 中的应用 |
 |---|---|
-| **A 级** | **完全不考虑**（基础阶段做不到，要求太高）|
+| **A 级** | **完全不考虑**（基础阶段做不到，要求太高；A 级先打基础，B 级以上再加 FD，理由见 [[Four-Strands-与Barry方法论的融合]]）|
 | **B 级** | 适当加入（AI 在复述 / Mini-Pre 训练时给"再压缩 X 秒"指令）|
 | **C 级** | **一定要有**（每次复述 / 演讲都强制走 4-3-2 流程，时间逐轮压缩）|
 
@@ -84,7 +84,7 @@ id: four-strands-training-toolbox
 
 ## Strand 1 · Meaning-Focused Input（意义聚焦输入·MFI）
 
-> **核心 purpose**：理解意思，不学新形式
+> **核心 purpose**：理解意思，焦点在内容不在形式（≠ 刻意学形式的 LFL；附带学习仍会发生）
 > **方法论提醒**：中国学员的**最大缺口**（见 [[Four-Strands-与Barry方法论的融合]]）
 
 ### 1.1 分级阅读（Graded Reading）
@@ -112,7 +112,7 @@ id: four-strands-training-toolbox
 
 ## Strand 2 · Meaning-Focused Output（意义聚焦输出·MFO）
 
-> **核心 purpose**：传达信息，不学新形式
+> **核心 purpose**：传达信息，焦点在内容不在形式（≠ 刻意学形式的 LFL；附带学习仍会发生）
 > **方法论定位**：你的**强项**（Mini Presentation / 模拟会议已有）
 
 ### 2.1 对话 / 口语角（Conversation / Speaking Corner）
@@ -237,6 +237,8 @@ id: four-strands-training-toolbox
 
 ### 3.2 中→英翻译（Chinese to English Translation）
 
+> 视译归 LFL（横跨 LFL/MFO，为简化归 LFL）。
+
 | 级别 | 模式 |
 |---|---|
 | **A** | **笔译**（Written Translation）|
@@ -304,14 +306,14 @@ id: four-strands-training-toolbox
 
 | 级别 | 配置 |
 |---|---|
-| **A** | **不需要**（基础阶段做不到，要求太高）|
+| **A** | **不需要**（基础阶段做不到，要求太高；A 级先打基础，B 级以上再加 FD，理由见 [[Four-Strands-与Barry方法论的融合]]）|
 | **B** | 适当加入 |
 | **C** | 强化训练 |
 
 | 维度 | 配置 |
 |---|---|
 | **做法** | 在 [[Mini-Presentation训练方法论\|Mini Presentation]] 和 [[复述-Retelling\|Retell]] 里**加入时间压迫感** |
-| **关键前提** | 必须有 pressure to perform faster——**没时间压力 ≠ Fluency**（Calum Insight 8）|
+| **关键前提** | 必须有 pressure to perform faster——**没时间压力 ≠ Fluency**（Nation 原话，见 [[Fluency-Development]] 条件 3）|
 | **不另起炉灶** | 不切独立时间块，作为 B/C 级 MFO 训练的"加压方式"嵌入 |
 | **方法论依据** | [[4-3-2-技巧]] |
 
@@ -369,11 +371,15 @@ id: four-strands-training-toolbox
 - 2026-05-13 与 Barry 的设计访谈（口述完整版，12 个训练方法 × ABC 三级 × Cross-cutting 原则 × AI 边界 × 配比警示）
 - Barry 自整理的 Four Strands × 训练方法配比表（2026-05 草图）
 - [[Paul Nation - The Four Strands (2007)]]
-- [[Calum课程笔记_20260318_Four_Strands]]
 - `english-training` Skill 的 step1-listening / step2-impromptu / step3-translation（流程参考）
 
 ---
 
 ## 更新记录
 
-- **[2026-05-13]** 新建——基于 Barry 完整口述设计访谈，整合 12 个具体训练方法 × ABC 三级配置 × AI 能力边界 × 跟方法论 wiki 的全量映射。关键设计原则：**A 级 MFI/MFO/LFL 30/30/30 + FD 不要 / B/C 级四线均衡 + FD 嵌入策略 / Cross-cutting 词块积累必选 / Anki 网页待补 dashboard 实现细节**。
+- **[2026-05-13]** 新建——基于 Barry 完整口述设计访谈，整合 12 个具体训练方法 × ABC 三级配置 × AI 能力边界 × 跟方法论 wiki 的全量映射。关键设计原则：**A 级 MFI/MFO/LFL 30/30/30 + FD 不要 / B/C 级三线均衡 + FD 嵌入策略 / Cross-cutting 词块积累必选 / Anki 网页待补 dashboard 实现细节**。
+- **[2026-06-11]** 巡检修复:FD 嵌入口径统一(复述:听材料=MFI;首轮产出=MFO;限时加压轮=FD);`barry-solution` 死链 wikilink 改为行内代码;更新记录"四线均衡"改"三线均衡"
+- **[2026-06-11]** 巡检修复:视译归 LFL 加简化说明(3.2);A 级不做 FD 处加指引(B 级以上再加,理由见融合页)
+- **[2026-06-11]** 批量打磨:4.1 "没时间压力 ≠ Fluency"归属由 Calum Insight 8 改为 Nation 原话(条件 3)
+- **[2026-06-11]** 批量打磨:MFI/MFO 的 purpose "不学新形式"改为"焦点在内容不在形式(≠ 刻意学形式的 LFL;附带学习仍会发生)"——"不学新形式/time out from learning"是 FD 的定义性特征,挂到 MFI/MFO 会抹掉与 FD 的边界
+- **[2026-06-11]** 按 Barry 定夺:清除 Calum 归属(删来源里 Calum 课程笔记 wikilink 引用)

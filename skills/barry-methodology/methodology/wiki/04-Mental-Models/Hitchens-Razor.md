@@ -101,8 +101,10 @@ Barry 自检——我现在打算说的这句话:
 ## 来源
 
 - `Barry 内部素材` 三.13(待迁入)
-- YouTube *This Simple Tool Will Improve Your Critical Thinking*(Pursuit of Wonder)
+- 科普转述渠道:YouTube *This Simple Tool Will Improve Your Critical Thinking*(Pursuit of Wonder)——Barry 接触到这把剃刀的渠道,非原始出处
+- 原始出处:Christopher Hitchens, *God Is Not Great*(2007);该句拉丁谚语 *Quod gratis asseritur, gratis negatur* 是更早的同义表述
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 批量打磨:来源补 Hitchens《God Is Not Great》(2007)文献 + 拉丁谚语同义表述;YouTube 标注为科普转述渠道(非原始出处)

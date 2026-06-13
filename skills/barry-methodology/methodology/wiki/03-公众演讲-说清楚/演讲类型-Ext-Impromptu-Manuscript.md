@@ -69,9 +69,10 @@ Extemporaneous 里**总会出现 Impromptu 的瞬间**:
 
 ## 来源
 
-- `Barry 内部素材` Definition 小节(待迁入)
-- `Barry 内部素材` 第四部分 1.1(待迁入)
+- `Barry 内部素材` Definition 小节
+- `Barry 内部素材` 第四部分 1.1
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 批量打磨:删除来源"(待迁入)"陈旧标记(对应 raw 文件实际已存在)。注:文件名漏 Memorization,但 H1 标题四类齐全,改名涉及 id/入链/index 联动,留待 Barry 决定是否重命名

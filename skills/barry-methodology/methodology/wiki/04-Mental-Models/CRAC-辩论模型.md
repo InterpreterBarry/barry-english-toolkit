@@ -30,25 +30,25 @@ id: crac-debate
 
 ### C(结论)——一句话,不解释
 
-"Boss, I'm actually not late today."
+"I'd like us to move forward with approving my time-off request for next week."
 
 **别犯的错**:加"我觉得"、"可能"、"应该"这种软化词。据理力争就要硬。
 
 ### R(规则)——准确引用,不改述
 
-"The company policy manual states that employees are late if they arrive 10 minutes or later after the beginning of the shift."
+"The employee handbook states that PTO requests submitted at least two weeks in advance are approved unless they conflict with a critical deadline."
 
 **别犯的错**:把规则改成对自己有利的版本。要**原封不动引用**,让对方挑不出毛病。
 
 ### A(分析)——规则怎么适用 + 预判反驳
 
-"I arrived to my shift within 5 minutes of it beginning, and not 10 minutes or more after it began."
+"I submitted this request three weeks ahead, and there's no release scheduled that week—so neither condition for a denial applies here."
 
 **关键动作**:**预判反驳**。对方会想反驳什么?提前把反驳点包进自己的分析里。
 
 ### C(重申)——加一层态度
 
-"Respectfully, because I'm not considered 'late' according to company policy, then there's no reason to threaten me with termination."
+"Respectfully, since my request meets every condition in the handbook, I'd ask that we approve it as written."
 
 "Respectfully" 一词既不示弱,也不激化,很好用。
 
@@ -72,21 +72,21 @@ id: crac-debate
 
 ## 示例
 
-### 中文示例(迟到 5 分钟被威胁开除)
+### 中文示例(休假申请被驳回)
 
-背景:换班迟到 5 分钟,老板说要开除你。但员工手册明确写"迟到"指 10 分钟以上。
+背景:你提前三周提交了下周的休假申请,经理却以"项目忙"为由拒绝。但员工手册写明:提前两周以上申请、且不撞关键节点的休假应予批准。
 
-> **C**:老板,按公司规定我今天并不算迟到。
-> **R**:员工手册写得很清楚——员工需比排班时间晚到 10 分钟及以上,才算迟到。
-> **A**:我今天迟到了 5 分钟,并没有超过 10 分钟。
-> **C**:既然按规则我不算迟到,那就没有理由威胁开除我。
+> **C**:我希望我们能把下周的休假申请批下来。
+> **R**:员工手册写得很清楚——提前至少两周提交的休假申请,只要不与关键节点冲突,就应予批准。
+> **A**:我提前了三周申请,而且那周没有任何排期发布,两个驳回条件一个都不成立。
+> **C**:出于尊重,既然我的申请满足手册里的每一项条件,我希望能按原样批准。
 
 ### 英文示例(同场景完整版)
 
-> **C**: Boss, I'm actually not late today.
-> **R**: The company policy manual states that employees are late if they arrive 10 minutes or later after the beginning of the shift.
-> **A**: I arrived to my shift within 5 minutes of it beginning, and not 10 minutes or more after it began.
-> **C**: Respectfully, because I'm not considered "late" according to company policy, then there's no reason to threaten me with termination.
+> **C**: I'd like us to move forward with approving my time-off request for next week.
+> **R**: The employee handbook states that PTO requests submitted at least two weeks in advance are approved unless they conflict with a critical deadline.
+> **A**: I submitted this request three weeks ahead, and there's no release scheduled that week, so neither condition for a denial applies here.
+> **C**: Respectfully, since my request meets every condition in the handbook, I'd ask that we approve it as written.
 
 ## 相关方法论
 
@@ -105,3 +105,4 @@ id: crac-debate
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 按 Barry 定夺:演示例句替换为原创职场例句(替换疑似 Abrahams 原书例句,为开源做准备)

@@ -8,7 +8,7 @@ id: delivery-nervousness
 
 ## 板块定位
 
-[[0-公众演讲板块总览|公众演讲板块]] / [[wiki/03-公众演讲-说清楚/半即兴演讲|半即兴演讲]] / **传达(Delivery)章节 / State 维度**。
+[[0-公众演讲板块总览|公众演讲板块]] / [[0-半即兴演讲总览|半即兴演讲]] / **传达(Delivery)章节 / State 维度**。
 
 **为什么 State 排在 Voice / Appearance 之前**:State(紧张状态)**直接决定**你能不能发挥 Voice 和 Appearance 的能力。状态崩了,声音再好的训练也派不上用场。详见 [[Delivery理论锚]]。
 
@@ -41,17 +41,9 @@ id: delivery-nervousness
 
 ## 5 句 Mantra ⭐(可重复念诵)
 
-来自 Feishu 课件,跟 [[板块核心心态|板块核心心态]] 的 5 句 Mantra **完全一致**——上台前 / 紧张时**默念**:
+上台前 / 紧张时**默念**——5 句 Mantra 的**完整表格(英文 + 中译)以 [[板块核心心态]] 的「5 句 Mantra」一节为准**,本页不重复列出,避免双写漂移。
 
-| 英文 | 中文 |
-|---|---|
-| Calm / Poise | 淡定 |
-| **I'm here to share** | 我是来分享的 |
-| **I have value to add** | 我能帮上你 |
-| I've improvised my way out of tough spots before—I've got this | 我可以的 |
-| It's not about me—my content is compelling | 我的内容好 |
-
-> Mantra 是**核心心态的"快捷键"**——临场没时间慢慢调心态时,默念一句就能拉回状态。
+> Mantra 是**核心心态的"快捷键"**——临场没时间慢慢调心态时,默念一句(如 "I'm here to share")就能拉回状态。
 
 ## 具体症状 → 具体对策
 
@@ -78,7 +70,7 @@ id: delivery-nervousness
 
 ### Empty filler 的根本原因
 
-学员常以为"嗯啊那个"是**习惯问题**——其实是**生理问题**:**句末没气了,大脑没准备好下一句,只能用 filler 续命**。
+学员常以为"嗯啊那个"是**习惯问题**——其实更多是**言语规划没跟上 + 呼吸节奏问题**:**句末气尽、下一句还没在脑子里成形,就用 filler 把空档填上、给规划争取时间**。
 
 解决:**一句话一口气讲完**。气尽 → 自然停顿 → 思考下一句 → 继续讲。**停顿不可怕,filler 才可怕**。
 
@@ -122,3 +114,5 @@ id: delivery-nervousness
 ## 更新记录
 
 - **[2026-05-04]** 新建——把 raw v1.0 的具体症状对策 + 飞书课件的 General principle + 5 句 Mantra 整合成完整页;**State 作为 Delivery 第一维度**(优先于 Voice 和 Appearance)
+- **[2026-06-11]** 巡检修复:板块定位 breadcrumb 死链改指 0-半即兴演讲总览
+- **[2026-06-11]** 批量打磨:5 句 Mantra 表格去重(改为引用 [[板块核心心态]] 为唯一源,避免双写漂移);filler 根因由"生理问题"修正为"言语规划没跟上 + 呼吸节奏"(技巧不变,归因更准)

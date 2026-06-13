@@ -11,7 +11,7 @@ id: alder-razor
 
 **没法验证的争论,就是纯粹的时间消耗**。
 
-提出者:数学家 **Mike Alder**。
+提出者:数学家 **Mike Alder**。他在 2004 年的随笔里给这把剃刀取的正式名字是 **Newton's Flaming Laser Sword(牛顿燃烧激光剑)**——"Alder's Razor"是它在思维模型圈的通行别名;开源/对外引用时建议带上正式名以便溯源。
 
 两个关键:
 
@@ -102,8 +102,10 @@ Sagan Standard     ──→   Hitchens Razor   ──→   Alder Razor
 ## 来源
 
 - `Barry 内部素材` 三.14(待迁入)
-- YouTube *This Simple Tool Will Improve Your Critical Thinking*(Pursuit of Wonder)
+- 科普转述渠道:YouTube *This Simple Tool Will Improve Your Critical Thinking*(Pursuit of Wonder)——Barry 接触到这把剃刀的渠道,非原始出处
+- 原始出处:Mike Alder, "Newton's Flaming Laser Sword"(*Philosophy Now*, 2004)
 
 ## 更新记录
 
 - **[2026-04-23]** 新建(批量拆分阶段)
+- **[2026-06-11]** 批量打磨:补通行正式名 Newton's Flaming Laser Sword + Alder 2004 随笔出处(开源溯源用);YouTube 标注为科普转述渠道(非原始出处)
